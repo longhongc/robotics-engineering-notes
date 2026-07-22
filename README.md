@@ -16,12 +16,10 @@ Personal notes for learning the mathematical foundations and engineering practic
 - `mkdocs.yml`: MkDocs configuration.
 
 ## Current resources
-### Books
-- Sheldon Axler, *Linear Algebra Done Right*.
-- Gilbert Strang, *Linear Algebra and Its Applications*.
-
 ### Linear algebra
 
+- Sheldon Axler, [*Linear Algebra Done Right, 4th Edition*](https://linear.axler.net/).
+- Gilbert Strang, [*Linear Algebra and Its Applications*](https://math.mit.edu/~gs/books/laa_toc.html).
 - 3Blue1Brown, [*Essence of Linear Algebra* (YouTube)](https://youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab&si=ULx7NuL18mrh5fla).
 - Visual Kernel, [*Matrix* series (YouTube)](https://youtube.com/playlist?list=PLWhu9osGd2dB9uMG5gKBARmk73oHUUQZS&si=9g14KcG363GJ7BHS).
 
