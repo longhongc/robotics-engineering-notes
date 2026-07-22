@@ -1,0 +1,12 @@
+# Control
+
+Notes on linear systems, stability, sensitivity, and the behavior of dynamical systems.
+
+## Notes
+
+- [Stability from trace and determinant](stability-trace-determinant.md)
+- [Dominant eigenvalues and qualitative behavior](dominant-eigenvalues-qualitative-behavior-linear-systems.md)
+- [Linear systems, eigenvectors, and exponential solutions](linear-systems-eigenvectors-and-exponential-solutions.md)
+- [Linear difference and differential equations](solutions-of-linear-difference-and-differential-equations.md)
+- [Matrix exponential properties](matrix-exponential-properties.md)
+- [Sensitivity of linear systems and condition numbers](sensitivity-linear-systems-condition-number.md)

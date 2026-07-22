@@ -105,7 +105,7 @@ $$
 
 ---
 
-## 7. Why $$Q \Lambda Q^\top$$ is not diagonal
+## 7. Why $Q \Lambda Q^\top$ is not diagonal
 
 Interpret the decomposition as:
 1. $Q^\top$: rotate into the eigenbasis
