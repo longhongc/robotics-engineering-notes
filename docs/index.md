@@ -31,8 +31,18 @@ The notes are organized by subject so that mathematical foundations and robotics
 - Sheldon Axler, *Linear Algebra Done Right*.
 - Gilbert Strang, *Linear Algebra and Its Applications*.
 
-### Video series
+### Linear algebra
+
 - 3Blue1Brown, [*Essence of Linear Algebra* (YouTube)](https://youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab&si=ULx7NuL18mrh5fla).
 - Visual Kernel, [*Matrix* series (YouTube)](https://youtube.com/playlist?list=PLWhu9osGd2dB9uMG5gKBARmk73oHUUQZS&si=9g14KcG363GJ7BHS).
+
+### Control
+
+- Brian Douglas, [*Classical Control Theory* (YouTube)](https://www.youtube.com/watch?v=oBc_BHxw78s&list=PLUMWjy5jgHK1NC52DXXrriwihVrYZKqjk&pp=iAQB).
+- Steve Brunton, [*Control Bootcamp* (YouTube)](https://www.youtube.com/watch?v=Pi7l8mMjYVE&list=PLMrJAkhIeNNR20Mz-VpzgfQs5zrYi085m).
+
+### Optimization
+
+- Steve Brunton, [*Optimization Bootcamp* (YouTube)](https://www.youtube.com/watch?v=lPBPbGmw1_4&list=PLMrJAkhIeNNS3UT10txhV70ZwIeIjkMQp).
 
 Update content in `raws/` and run `python format_raw_to_docs.py --clean` to regenerate `docs/notes/`.
