@@ -45,4 +45,11 @@ The notes are organized by subject so that mathematical foundations and robotics
 
 - Steve Brunton, [*Optimization Bootcamp* (YouTube)](https://www.youtube.com/watch?v=lPBPbGmw1_4&list=PLMrJAkhIeNNS3UT10txhV70ZwIeIjkMQp).
 
+## Planned resources
+
+### Modeling
+
+- Mark W. Spong, Seth Hutchinson, and M. Vidyasagar, [*Robot Modeling and Control, 2nd Edition*](https://www.wiley-vch.de/en/?isbn=978-1-119-52399-4&option=com_eshop&view=product).
+- Kevin M. Lynch and Frank C. Park, [*Modern Robotics: Mechanics, Planning, and Control*](https://www.cambridge.org/core/books/modern-robotics/57C3BB1C6D5CB40320FA96E5FA3BCEC6).
+
 Update content in `raws/` and run `python format_raw_to_docs.py --clean` to regenerate `docs/notes/`.

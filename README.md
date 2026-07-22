@@ -34,6 +34,13 @@ Personal notes for learning the mathematical foundations and engineering practic
 
 - Steve Brunton, [*Optimization Bootcamp* (YouTube)](https://www.youtube.com/watch?v=lPBPbGmw1_4&list=PLMrJAkhIeNNS3UT10txhV70ZwIeIjkMQp).
 
+## Planned resources
+
+### Modeling
+
+- Mark W. Spong, Seth Hutchinson, and M. Vidyasagar, [*Robot Modeling and Control, 2nd Edition*](https://www.wiley-vch.de/en/?isbn=978-1-119-52399-4&option=com_eshop&view=product).
+- Kevin M. Lynch and Frank C. Park, [*Modern Robotics: Mechanics, Planning, and Control*](https://www.cambridge.org/core/books/modern-robotics/57C3BB1C6D5CB40320FA96E5FA3BCEC6).
+
 ## Notes
 
 The project is organized around robotics subjects rather than a fixed course sequence. Add new source material under the most specific matching folder; create a subfolder when a subject grows large enough to need one.
