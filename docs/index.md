@@ -26,7 +26,7 @@ The notes are organized by subject so that mathematical foundations and robotics
 - [Probability](notes/probability/index.md)
 - [Modeling](notes/modeling/index.md)
 
-## Current resources
+## Resources
 ### Linear algebra
 
 - Sheldon Axler, [*Linear Algebra Done Right, 4th Edition*](https://linear.axler.net/).
@@ -38,19 +38,11 @@ The notes are organized by subject so that mathematical foundations and robotics
 
 - Brian Douglas, [*Classical Control Theory* (YouTube)](https://www.youtube.com/watch?v=oBc_BHxw78s&list=PLUMWjy5jgHK1NC52DXXrriwihVrYZKqjk&pp=iAQB).
 - Steve Brunton, [*Control Bootcamp* (YouTube)](https://www.youtube.com/watch?v=Pi7l8mMjYVE&list=PLMrJAkhIeNNR20Mz-VpzgfQs5zrYi085m).
-
-### Optimization
-
-- Steve Brunton, [*Optimization Bootcamp* (YouTube)](https://www.youtube.com/watch?v=lPBPbGmw1_4&list=PLMrJAkhIeNNS3UT10txhV70ZwIeIjkMQp).
-
-## Planned resources
-
-### Control
-
 - Karl Johan Åström and Richard M. Murray, [*Feedback Systems: An Introduction for Scientists and Engineers*](https://www.cds.caltech.edu/~murray/FBS/Second_Edition.html) (2nd Edition).
 
 ### Optimization
 
+- Steve Brunton, [*Optimization Bootcamp* (YouTube)](https://www.youtube.com/watch?v=lPBPbGmw1_4&list=PLMrJAkhIeNNS3UT10txhV70ZwIeIjkMQp).
 - Jorge Nocedal and Stephen J. Wright, [*Numerical Optimization*](https://link.springer.com/book/10.1007/978-0-387-40065-5) (2nd Edition).
 - Stephen Boyd and Lieven Vandenberghe, [*Convex Optimization*](https://web.stanford.edu/~boyd/cvxbook/).
 
