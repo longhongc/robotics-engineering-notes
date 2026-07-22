@@ -47,6 +47,15 @@ The notes are organized by subject so that mathematical foundations and robotics
 
 ## Planned resources
 
+### Control
+
+- Karl Johan Åström and Richard M. Murray, [*Feedback Systems: An Introduction for Scientists and Engineers*](https://www.cds.caltech.edu/~murray/FBS/Second_Edition.html) (2nd Edition).
+
+### Optimization
+
+- Jorge Nocedal and Stephen J. Wright, [*Numerical Optimization*](https://link.springer.com/book/10.1007/978-0-387-40065-5) (2nd Edition).
+- Stephen Boyd and Lieven Vandenberghe, [*Convex Optimization*](https://web.stanford.edu/~boyd/cvxbook/).
+
 ### Modeling
 
 - Mark W. Spong, Seth Hutchinson, and M. Vidyasagar, [*Robot Modeling and Control, 2nd Edition*](https://www.wiley-vch.de/en/?isbn=978-1-119-52399-4&option=com_eshop&view=product).
