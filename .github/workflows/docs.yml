@@ -7,6 +7,7 @@ on:
       - "raws/**"
       - "mkdocs.yml"
       - "format_raw_to_docs.py"
+      - "verify_generated_assets.py"
       - "requirements.txt"
       - "docs/**"
   workflow_dispatch:
@@ -39,7 +40,11 @@ jobs:
 
       - name: Transform raws -> docs
         run: |
-          python format_raw_to_docs.py
+          python format_raw_to_docs.py --clean
+
+      - name: Verify generated asset paths
+        run: |
+          python verify_generated_assets.py
 
       - name: Build site
         run: |
@@ -63,4 +68,3 @@ jobs:
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
-

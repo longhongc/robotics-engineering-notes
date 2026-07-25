@@ -50,6 +50,12 @@ To rebuild the rendered notes, update content in `raws/` and run:
 python format_raw_to_docs.py --clean
 ```
 
+Images and other note assets belong beside their source note under `raws/`,
+usually in an `assets/` subdirectory. The formatter copies them to the same
+relative path under `docs/notes/`; do not add generated assets directly to
+`docs/notes/`. CI cleans and regenerates the output, then verifies that every
+raw asset has a matching generated path.
+
 ## Learning issues
 
 Use [the GitHub learning-issue workflow](docs/learning-issue-workflow.md) to capture learning discussions as issue threads for later repository-aware curation. The issue body and comments are the archive; `raws/` remains the textbook source.

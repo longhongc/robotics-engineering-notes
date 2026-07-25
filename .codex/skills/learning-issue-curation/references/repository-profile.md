@@ -14,6 +14,7 @@ Reinspect this repository on every curation run. This is the setup-time baseline
 
 - `mkdocs.yml` uses the ReadTheDocs theme, MathJax-compatible arithmatex, superfences, details, and a permalinked TOC. It has no explicit `nav` or `site_url`.
 - `.github/workflows/docs.yml` installs `requirements.txt`, regenerates docs, and runs `mkdocs build --strict --site-dir site` before GitHub Pages deployment on `main`.
+- Non-Markdown assets such as images are canonical under `raws/` beside the source note, commonly `raws/<subject>/assets/`. The formatter copies them to the identical relative path under `docs/notes/`; CI uses `--clean` and runs `verify_generated_assets.py` to prevent stale or missing generated assets.
 - No repository test directory, `AGENTS.md`, contributor guide, or existing Codex skill was present during setup.
 
 ## Validation
@@ -22,6 +23,7 @@ Run:
 
 ```bash
 python format_raw_to_docs.py --clean
+python verify_generated_assets.py
 mkdocs build --strict --site-dir site
 git diff --check
 ```
