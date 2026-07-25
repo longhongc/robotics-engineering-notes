@@ -52,3 +52,7 @@ The notes are organized by subject so that mathematical foundations and robotics
 - Kevin M. Lynch and Frank C. Park, [*Modern Robotics: Mechanics, Planning, and Control*](https://www.cambridge.org/core/books/modern-robotics/57C3BB1C6D5CB40320FA96E5FA3BCEC6).
 
 Update content in `raws/` and run `python format_raw_to_docs.py --clean` to regenerate `docs/notes/`.
+
+## Learning issues
+
+See [GitHub learning-issue workflow](learning-issue-workflow.md) for issue labels, thread curation, draft pull requests, and completion behavior.

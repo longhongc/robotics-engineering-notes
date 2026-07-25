@@ -1,0 +1,4 @@
+interface:
+  display_name: "Learning Issue Curation"
+  short_description: "Curate GitHub learning issues into notes"
+  default_prompt: "Use $learning-issue-curation to review a GitHub learning issue without changing files or issue state."

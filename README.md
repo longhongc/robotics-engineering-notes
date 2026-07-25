@@ -49,3 +49,7 @@ To rebuild the rendered notes, update content in `raws/` and run:
 ```bash
 python format_raw_to_docs.py --clean
 ```
+
+## Learning issues
+
+Use [the GitHub learning-issue workflow](docs/learning-issue-workflow.md) to capture learning discussions as issue threads for later repository-aware curation. The issue body and comments are the archive; `raws/` remains the textbook source.
