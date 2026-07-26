@@ -89,6 +89,24 @@ The full executable example that generated the figures in this note is
 
 ## 3. The derivative relationships
 
+The notation distinguishes the independent variable:
+
+$$
+\dot{q}=\frac{dq}{dt}, \qquad
+\ddot{q}=\frac{d^2q}{dt^2},
+$$
+
+are time derivatives, while
+
+$$
+q'(s)=\frac{dq}{ds}, \qquad
+q''(s)=\frac{d^2q}{ds^2}
+$$
+
+are derivatives with respect to the path coordinate. A dot therefore describes
+the physical time evolution of the robot, while a prime describes the shape of
+the path itself.
+
 Applying the chain rule gives the joint velocity:
 
 $$
@@ -233,7 +251,110 @@ The sine example is an extension, not the preferred starting point. Its output
 acceleration can change even when the multiplier is constant because the path
 itself has curvature.
 
-## 7. Controlled stopping is not an emergency stop
+## 7. When the path is given by waypoints
+
+A waypoint sequence is not, by itself, a continuous function $q(s)$. To
+retime it, choose a path coordinate and an interpolation rule. Let the stored
+waypoints be $q_i=q(s_i)$. If $s=i$ is the waypoint index and the original
+trajectory has a fixed waypoint interval $T_0$, then
+
+$$
+\dot{s}=\frac{m}{T_0}, \qquad
+s_{k+1}=s_k+\frac{m_k\Delta t}{T_0}.
+$$
+
+### Numerical derivatives
+
+For interior waypoints with unit index spacing, central differences provide
+first estimates:
+
+$$
+q'_i \approx \frac{q_{i+1}-q_{i-1}}{2}, \qquad
+q''_i \approx q_{i+1}-2q_i+q_{i-1}.
+$$
+
+For nonuniform $s_i$, use the actual coordinate values in the finite
+differences. If $s$ is normalized instead of being an index, scale the
+derivatives consistently with that choice.
+
+Second differences amplify waypoint noise. More importantly, the derivative
+values depend on the interpolation model. Linear interpolation has piecewise
+constant $q'(s)$ and discontinuous changes at corners; a smooth spline gives
+usable derivatives but defines a smoothed path between the waypoints. The
+interpolation choice must therefore be part of the retiming design.
+
+The companion example uses a cubic Hermite interpolant. It estimates the
+slopes at the waypoints numerically, then evaluates $q(s)$, $q'(s)$, and
+$q''(s)$ from that interpolant. The long implementation is kept in the
+[two-joint multiplier-rate example](https://github.com/longhongc/robotics-engineering-notes/blob/main/examples/trajectory-generation/two_joint_multiplier_ramp_bounds.py)
+rather than duplicated in this note.
+
+### Joint-wise feasible multiplier rate
+
+For joint $j$, substitute $\dot{s}=m/T_0$ and
+$\ddot{s}=\dot{m}/T_0$ into the acceleration equation:
+
+$$
+\ddot{q}_j
+=
+\underbrace{q''_j(s)\left(\frac{m}{T_0}\right)^2}_{c_j}
++
+\underbrace{\frac{q'_j(s)}{T_0}}_{b_j}\dot{m}.
+$$
+
+Given joint acceleration limits
+$a_{j,\min}\leq\ddot{q}_j\leq a_{j,\max}$, each joint produces an interval
+for $\dot{m}$. When $b_j\neq0$, compute
+
+$$
+\ell_j
+=
+\min\left(
+\frac{a_{j,\min}-c_j}{b_j},
+\frac{a_{j,\max}-c_j}{b_j}
+\right),
+$$
+
+$$
+u_j
+=
+\max\left(
+\frac{a_{j,\min}-c_j}{b_j},
+\frac{a_{j,\max}-c_j}{b_j}
+\right).
+$$
+
+The multiplier rate must lie in the intersection:
+
+$$
+\max_j\ell_j
+\leq
+\dot{m}
+\leq
+\min_j u_j.
+$$
+
+If $b_j$ is approximately zero, the curvature term $c_j$ must already
+satisfy that joint's acceleration limits; changing the multiplier rate cannot
+help that joint at the current path position. If the intervals do not
+intersect, the current multiplier is too high for a locally feasible ramp, so
+the retimer must reduce speed earlier or use a forward braking calculation.
+
+Finally, verify the actual interpolated command sequence directly. With a
+fixed controller period, a discrete check is
+
+$$
+\ddot{q}_k
+\approx
+\frac{q_{k+1}-2q_k+q_{k-1}}{\Delta t^2}.
+$$
+
+This check captures interpolation and waypoint-boundary effects that a local
+derivative estimate may miss. It is an approximation, not a proof of hardware
+safety; jerk, torque, actuator, and multi-joint constraints still require
+separate validation.
+
+## 8. Controlled stopping is not an emergency stop
 
 A controlled retimed stop sets the target multiplier to zero and ramps toward
 it while respecting motion constraints. It is appropriate when the system has
@@ -256,7 +377,7 @@ hardware, lower-level safety controllers, braking logic, or a different
 acceptance standard. A normal retiming ramp must not be presented as a
 certified emergency-stop mechanism.
 
-## 8. Common failure modes
+## 9. Common failure modes
 
 ### Lowering the control-loop frequency
 
@@ -289,7 +410,7 @@ acceleration budget before retiming acceleration is applied.
 The two mechanisms have different timing assumptions, guarantees, and safety
 responsibilities.
 
-## 9. Implementation checklist
+## 10. Implementation checklist
 
 For a streaming implementation, verify that it:
 
@@ -307,7 +428,7 @@ The example script checks the scalar acceleration bound for its configured
 straight and sine paths. It does not replace multi-joint simulation or
 hardware validation.
 
-## 10. Summary
+## 11. Summary
 
 The reusable mental model is:
 

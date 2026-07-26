@@ -8,6 +8,10 @@ acceleration below the configured limit.
 The straight-line path is the primary teaching example. The sine path is an
 extension that shows the additional path-curvature acceleration term.
 
+`two_joint_multiplier_ramp_bounds.py` demonstrates waypoint interpolation,
+numerical knot slopes, and the intersection of signed multiplier-rate bounds
+from two joint acceleration limits.
+
 Install the example-only dependencies into the repository virtual environment:
 
 ```bash
