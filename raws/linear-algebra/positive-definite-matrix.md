@@ -104,6 +104,49 @@ $$
 
 ---
 
+## Congruence Transforms and Inertia
+
+For an invertible matrix \(P\), a change of variables \(x=Py\) transforms the
+quadratic form as
+
+$$
+x^\top A x = y^\top (P^\top A P)y.
+$$
+
+The matrix transformation
+
+$$
+A \mapsto P^\top A P
+$$
+
+is called a **congruence transformation**. It describes the same quadratic-form
+geometry in different coordinates; it does not generally describe the same
+linear operator in a new basis.
+
+For a real symmetric matrix \(A\), **Sylvester's law of inertia** states that
+every nonsingular congruence preserves the triple
+
+$$
+(n_+,n_-,n_0),
+$$
+
+where \(n_+\), \(n_-\), and \(n_0\) count the positive, negative, and zero
+eigenvalues of \(A\). Congruence therefore preserves definiteness and the
+number of flat directions, but not the numerical eigenvalues themselves.
+
+This is different from a similarity transformation
+
+$$
+B=P^{-1}AP,
+$$
+
+which represents the same linear operator in a different basis and preserves
+the characteristic polynomial and exact eigenvalues. See [Similarity
+Invariance of Eigenvalues and Multiplicities](similarity-invariance-eigenvalues-multiplicities.md)
+for that distinction.
+
+---
+
 ## Final Summary
 - Positive definite matrices are **real symmetric matrices**
 - They satisfy:
@@ -116,4 +159,5 @@ $$
   A = R^\top R
   $$
 - Only the **symmetric part** of a matrix affects \(x^\top A x\)
-
+- Congruence preserves the inertia of a real symmetric matrix, while similarity
+  preserves its exact eigenvalues

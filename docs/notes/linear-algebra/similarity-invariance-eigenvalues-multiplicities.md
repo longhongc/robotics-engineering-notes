@@ -18,6 +18,11 @@ for some invertible matrix \( P \).
 
 Similarity corresponds to rewriting a linear map in a different basis.
 
+This should be distinguished from **congruence**, which transforms a quadratic
+form as $A \mapsto P^\top A P$ and preserves inertia under the assumptions of
+Sylvester's law. See [Positive Definite Matrices — Summary
+Notes](positive-definite-matrix.md) for the quadratic-form perspective.
+
 ---
 
 ## Eigenvalues Are Invariant
@@ -79,4 +84,3 @@ $$
 Since both multiplicities are similarity invariants:
 - Either **all** similar matrices are diagonalizable
 - Or **none**
-
