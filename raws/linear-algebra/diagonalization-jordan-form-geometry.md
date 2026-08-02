@@ -79,7 +79,7 @@ The second state evolves as an ordinary first-order mode, while \(x_2\) also
 drives the equation for \(x_1\). The coupling is one-way: \(x_2\) drives
 \(x_1\), not the reverse.
 
-![Block diagram of a two-state Jordan chain as feedback-integrator stages](assets/jordan-block-integrator-chain.svg)
+![Block diagram of a two-state Jordan chain as feedback-integrator stages](assets/jordan-block-integrator-chain.png)
 
 *The diagram is drawn in generalized-eigenvector coordinates. The
 superdiagonal \(1\) is a coordinate normalization, not necessarily a literal
