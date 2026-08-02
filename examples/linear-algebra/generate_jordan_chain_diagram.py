@@ -15,18 +15,39 @@ DEFAULT_OUTPUT = Path(
 )
 
 
-def arrow(axis, start, end, *, color="#1f5a94", connectionstyle="arc3") -> None:
+def arrow(
+    axis,
+    start,
+    end,
+    *,
+    color="#1f5a94",
+    linestyle="-",
+    arrowhead=True,
+) -> None:
     axis.add_patch(
         FancyArrowPatch(
             start,
             end,
-            arrowstyle="-|>",
+            arrowstyle="-|>" if arrowhead else "-",
             mutation_scale=13,
             linewidth=1.6,
             color=color,
-            connectionstyle=connectionstyle,
+            linestyle=linestyle,
         )
     )
+
+
+def routed_arrow(axis, points, *, color="#1f5a94", linestyle="-") -> None:
+    """Draw a routed path with an arrowhead only at its final segment."""
+    for index, (start, end) in enumerate(zip(points, points[1:])):
+        arrow(
+            axis,
+            start,
+            end,
+            color=color,
+            linestyle=linestyle,
+            arrowhead=index == len(points) - 2,
+        )
 
 
 def block(axis, center, width, height, label, *, facecolor="#eaf2fb") -> None:
@@ -68,68 +89,92 @@ def generate_diagram(output: Path) -> None:
     output.parent.mkdir(parents=True, exist_ok=True)
     plt.rcParams.update({"font.size": 11, "svg.fonttype": "none"})
 
-    figure, axis = plt.subplots(figsize=(11, 5.8))
-    axis.set_xlim(0.2, 11.8)
-    axis.set_ylim(0.25, 7.0)
+    figure, axis = plt.subplots(figsize=(12, 6.5))
+    axis.set_xlim(0.2, 10.4)
+    axis.set_ylim(0.2, 7.2)
+    axis.set_aspect("equal", adjustable="box")
     axis.axis("off")
 
     top_y = 5.0
-    bottom_y = 2.0
-    sum_x = 2.0
-    integrator_x = 4.0
-    output_x = 5.8
+    bottom_y = 2.4
+    sum_x = 1.5
+    integrator_x = 3.5
+    output_x = 5.2
+    coupling_color = "#2f7d32"
 
     summing_junction(axis, (sum_x, top_y))
     summing_junction(axis, (sum_x, bottom_y))
     block(axis, (integrator_x, top_y), 1.35, 0.8, r"$1/s$")
     block(axis, (integrator_x, bottom_y), 1.35, 0.8, r"$1/s$")
-    block(axis, (6.8, 6.15), 0.9, 0.55, r"$\lambda$")
-    block(axis, (6.8, 0.85), 0.9, 0.55, r"$\lambda$")
+    block(axis, (4.4, 6.25), 0.9, 0.55, r"$\lambda$")
+    block(axis, (4.4, 0.9), 0.9, 0.55, r"$\lambda$")
 
     # Forward paths through the summing junctions and integrators.
-    arrow(axis, (2.3, top_y), (3.3, top_y))
-    arrow(axis, (2.3, bottom_y), (3.3, bottom_y))
-    arrow(axis, (4.7, top_y), (output_x, top_y))
-    arrow(axis, (4.7, bottom_y), (output_x, bottom_y))
+    arrow(axis, (1.8, top_y), (2.8, top_y))
+    arrow(axis, (1.8, bottom_y), (2.8, bottom_y))
+    arrow(axis, (4.2, top_y), (output_x, top_y))
+    arrow(axis, (4.2, bottom_y), (output_x, bottom_y))
+    arrow(axis, (output_x, top_y), (6.2, top_y))
+    arrow(axis, (output_x, bottom_y), (6.2, bottom_y))
     label(axis, (2.8, top_y + 0.23), r"$\dot{x}_1$")
     label(axis, (2.8, bottom_y + 0.23), r"$\dot{x}_2$")
-    label(axis, (6.25, top_y + 0.23), r"$x_1$")
-    label(axis, (6.25, bottom_y + 0.23), r"$x_2$")
+    label(axis, (5.7, top_y + 0.23), r"$x_1$")
+    label(axis, (5.7, bottom_y + 0.23), r"$x_2$")
 
-    # Self-feedback paths lambda*x_i back to each summing junction.
-    arrow(axis, (output_x, top_y), (output_x, 6.15))
-    arrow(axis, (output_x, 6.15), (7.3, 6.15))
-    arrow(axis, (6.35, 6.15), (sum_x, 5.35), connectionstyle="angle3")
-    label(axis, (8.05, 6.45), r"$\lambda x_1$")
+    # Upper self-feedback path: x_1 -> lambda -> top summing junction.
+    routed_arrow(
+        axis,
+        [(output_x, top_y), (output_x, 6.25), (4.85, 6.25)],
+    )
+    routed_arrow(
+        axis,
+        [(3.95, 6.25), (sum_x, 6.25), (sum_x, 5.35)],
+    )
+    label(axis, (4.4, 6.72), r"$\lambda x_1$")
 
-    arrow(axis, (output_x, bottom_y), (output_x, 0.85))
-    arrow(axis, (output_x, 0.85), (7.3, 0.85))
-    arrow(axis, (6.35, 0.85), (sum_x, 1.35), connectionstyle="angle3")
-    label(axis, (8.05, 0.52), r"$\lambda x_2$")
+    # Lower self-feedback path: x_2 -> lambda -> bottom summing junction.
+    routed_arrow(
+        axis,
+        [(output_x, bottom_y), (output_x, 0.9), (4.85, 0.9)],
+    )
+    routed_arrow(
+        axis,
+        [(3.95, 0.9), (sum_x, 0.9), (sum_x, 2.05)],
+    )
+    label(axis, (4.4, 0.48), r"$\lambda x_2$")
 
     # One-way Jordan coupling from x_2 into the x_1 summing junction.
-    arrow(axis, (output_x, bottom_y), (9.3, bottom_y))
-    arrow(axis, (9.3, bottom_y), (9.3, 4.35))
-    arrow(axis, (9.3, 4.35), (sum_x, 4.35), connectionstyle="angle3")
-    label(axis, (9.65, 3.35), r"$x_2$", rotation=90)
-    label(axis, (5.9, 4.35), "one-way coupling", color="#2f7d32")
+    routed_arrow(
+        axis,
+        [(6.2, bottom_y), (7.8, bottom_y), (7.8, 4.15)],
+        color=coupling_color,
+        linestyle="--",
+    )
+    routed_arrow(
+        axis,
+        [(7.8, 4.15), (sum_x, 4.15), (sum_x, 4.65)],
+        color=coupling_color,
+        linestyle="--",
+    )
+    label(axis, (8.15, 3.35), r"$x_2$", rotation=90, color=coupling_color)
+    label(axis, (4.7, 4.42), "one-way coupling", color=coupling_color)
 
     label(
         axis,
-        (6.0, 6.8),
-        r"Jordan block dynamics: $\dot{x}=Jx,\quad J=[\lambda\ \ 1;\ 0\ \ \lambda]$",
+        (5.2, 7.0),
+        r"Jordan block dynamics: $\dot{x}=Jx$",
         fontsize=14,
     )
     label(
         axis,
-        (1.25, 5.65),
+        (0.35, 5.75),
         r"$\dot{x}_1=\lambda x_1+x_2$",
         ha="left",
         fontsize=11,
     )
     label(
         axis,
-        (1.25, 1.0),
+        (0.35, 1.55),
         r"$\dot{x}_2=\lambda x_2$",
         ha="left",
         fontsize=11,
@@ -139,9 +184,17 @@ def generate_diagram(output: Path) -> None:
         output,
         format=output.suffix.lstrip("."),
         bbox_inches="tight",
-        metadata={"Creator": __file__},
+        metadata={"Creator": "generate_jordan_chain_diagram.py"},
     )
     plt.close(figure)
+
+    if output.suffix.lower() == ".svg":
+        # Matplotlib may leave spaces at the ends of wrapped path lines.
+        # Normalize them so generated assets pass git diff --check.
+        normalized = "\n".join(
+            line.rstrip() for line in output.read_text(encoding="utf-8").splitlines()
+        )
+        output.write_text(normalized + "\n", encoding="utf-8")
 
 
 def main() -> None:
