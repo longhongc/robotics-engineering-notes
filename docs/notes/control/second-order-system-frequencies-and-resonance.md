@@ -476,6 +476,37 @@ The frequencies are properties of a model and an input-output choice. Measured
 hardware resonances may also shift with payload, configuration, friction,
 sampling, and closed-loop controller gains.
 
+## Damping is a model-dependent property
+
+Mass, stiffness, and damping enter the equations of motion in different ways:
+
+| Property | Typical physical interpretation | Why the model can be uncertain |
+| --- | --- | --- |
+| Mass and inertia | Distribution of mass and resistance to acceleration | Payload, configuration, and unmodeled components can change them |
+| Stiffness | Restoring force from material, geometry, and constraints | Joints, contacts, preload, and nonlinear deformation can change the local slope |
+| Damping | Dissipation of mechanical energy | Friction, hysteresis, fluid effects, interfaces, and attached devices may act together |
+
+Damping is therefore often an effective model parameter rather than one
+directly measurable material property. Its apparent value may depend on
+amplitude, frequency, temperature, operating condition, contact state, and the
+measurement method. A viscous coefficient can be a useful local approximation
+without implying that every loss mechanism is linear or constant.
+
+For a multi-degree-of-freedom structure, damping is generally modal: different
+modes can have different effective damping ratios and different dominant loss
+mechanisms. The boundary $\zeta=1/\sqrt{2}$ discussed above belongs to the
+standard single-mode displacement transfer function. It identifies when that
+idealized magnitude curve loses its nonzero-frequency peak; it does not mean
+that a real structure has become safe from vibration, fatigue, or instability.
+
+Supplemental dampers can reduce the response of selected modes, but they do so
+by transferring energy and force into the damper, its connections, and the
+surrounding load path. A design must therefore also check force capacity,
+stroke, fatigue, temperature sensitivity, maintenance, nonlinear behavior,
+and credible failure modes. For large structures, response limits, fatigue,
+stability, and uncertainty across relevant modes are more useful design
+targets than trying to force every mode above one damping-ratio threshold.
+
 ## Common confusions
 
 Use the source of the observation to choose the relevant frequency:
@@ -511,4 +542,5 @@ avoidance.
 - [Similarity transformations, the spectral theorem, and Jordan form](../linear-algebra/similarity-spectral-theorem-jordan-form.md)
 - [Complex exponentials and physical meaning](../modeling/dynamics/complex-exponential-derivative-physical-meaning.md)
 - [Learning issue #9](https://github.com/longhongc/robotics-engineering-notes/issues/9)
+- [Learning issue #13](https://github.com/longhongc/robotics-engineering-notes/issues/13)
 - [Learning issue #5](https://github.com/longhongc/robotics-engineering-notes/issues/5)
