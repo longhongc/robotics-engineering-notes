@@ -143,6 +143,18 @@ largest displacement gain occurs at zero frequency. At \(\zeta=0\), the ideal
 model has an infinite gain at \(\omega=\omega_0\), which is the mathematical
 resonance of an undamped oscillator.
 
+The three panels below show the same normalized displacement gain for
+representative damping ratios. The vertical dashed line marks \(r=1\), while
+the dotted line in the lightly damped panel marks the nonzero resonance peak.
+The strongly damped example uses \(\zeta=0.8\): it is not overdamped in the
+time-domain pole classification, but it is already above the
+\(1/\sqrt{2}\) threshold for a displacement resonance peak.
+
+![Normalized displacement frequency response for three damping ratios](assets/resonance-frequency-response.svg)
+
+*The undamped curve is singular at \(r=1\); its plotted height is clipped only
+to keep the comparison readable.*
+
 The formula is therefore not a universal property of every second-order
 quantity. It depends on the chosen input-output transfer function and on the
 damping range.
