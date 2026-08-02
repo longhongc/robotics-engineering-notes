@@ -90,8 +90,10 @@ def generate_diagram(output: Path) -> None:
     plt.rcParams.update({"font.size": 11, "svg.fonttype": "none"})
 
     figure, axis = plt.subplots(figsize=(12, 6.5))
-    axis.set_xlim(0.2, 10.4)
-    axis.set_ylim(0.2, 7.2)
+    # Leave room around the routed diagram so equations and arrowheads do not
+    # touch the rendered image frame.
+    axis.set_xlim(-0.8, 11.6)
+    axis.set_ylim(-0.3, 7.5)
     axis.set_aspect("equal", adjustable="box")
     axis.axis("off")
 
@@ -116,8 +118,8 @@ def generate_diagram(output: Path) -> None:
     arrow(axis, (4.2, bottom_y), (output_x, bottom_y))
     arrow(axis, (output_x, top_y), (6.2, top_y))
     arrow(axis, (output_x, bottom_y), (6.2, bottom_y))
-    label(axis, (2.8, top_y + 0.23), r"$\dot{x}_1$")
-    label(axis, (2.8, bottom_y + 0.23), r"$\dot{x}_2$")
+    label(axis, (2.8, top_y + 0.3), r"$\dot{x}_{1}$")
+    label(axis, (2.8, bottom_y + 0.3), r"$\dot{x}_{2}$")
     label(axis, (5.7, top_y + 0.23), r"$x_1$")
     label(axis, (5.7, bottom_y + 0.23), r"$x_2$")
 
@@ -161,21 +163,21 @@ def generate_diagram(output: Path) -> None:
 
     label(
         axis,
-        (5.2, 7.0),
+        (5.2, 7.18),
         r"Jordan block dynamics: $\dot{x}=Jx$",
         fontsize=14,
     )
     label(
         axis,
         (0.35, 5.75),
-        r"$\dot{x}_1=\lambda x_1+x_2$",
+        r"$\dot{x}_{1}=\lambda x_{1}+x_{2}$",
         ha="left",
         fontsize=11,
     )
     label(
         axis,
         (0.35, 1.55),
-        r"$\dot{x}_2=\lambda x_2$",
+        r"$\dot{x}_{2}=\lambda x_{2}$",
         ha="left",
         fontsize=11,
     )
