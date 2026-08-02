@@ -53,6 +53,60 @@ J =
 
 Jordan blocks represent **intrinsic entanglement of directions**.
 
+### Dynamical interpretation: a chain of feedback-integrator stages
+
+The same \(2\times2\) Jordan block can be read as a continuous-time
+state-space model:
+
+\[
+\dot{x}=Jx,\qquad
+J=
+\begin{bmatrix}
+\lambda & 1\\
+0 & \lambda
+\end{bmatrix}.
+\]
+
+Writing the rows separately gives
+
+\[
+\dot{x}_1=\lambda x_1+x_2,\qquad
+\dot{x}_2=\lambda x_2.
+\]
+
+Each state equation contains an integrator in feedback with gain \(\lambda\).
+The second state evolves as an ordinary first-order mode, while \(x_2\) also
+drives the equation for \(x_1\). The coupling is one-way: \(x_2\) drives
+\(x_1\), not the reverse.
+
+![Block diagram of a two-state Jordan chain as feedback-integrator stages](assets/jordan-block-integrator-chain.svg)
+
+*The diagram is drawn in generalized-eigenvector coordinates. The
+superdiagonal \(1\) is a coordinate normalization, not necessarily a literal
+physical gain or physical wiring in the original system.*
+
+For a three-state block, the same pattern continues:
+
+\[
+\dot{x}_1=\lambda x_1+x_2,\qquad
+\dot{x}_2=\lambda x_2+x_3,\qquad
+\dot{x}_3=\lambda x_3.
+\]
+
+The last state contributes an \(e^{\lambda t}\) term. Each preceding state
+integrates a signal containing that same exponential, producing
+
+\[
+e^{\lambda t},\qquad
+te^{\lambda t},\qquad
+\frac{t^2}{2!}e^{\lambda t},\ldots
+\]
+
+This is the dynamical reason a defective repeated mode produces
+polynomial-times-exponential terms. A diagonal matrix would instead describe
+independent modal coordinates, with no one-way generalized-eigenvector
+coupling.
+
 ---
 
 ## 3. Rotation and Complex Eigenvalues
@@ -129,3 +183,8 @@ Inner-product preservation is **independent of diagonalizability**.
 
 Diagonalization means complete decoupling of directions, Jordan blocks encode unavoidable shear-type coupling, and rotation arises from complex eigenvalues rather than from Jordan defectiveness.
 
+## Related material
+
+- [Matrix exponential properties](../control/matrix-exponential-properties.md)
+- [Solutions of linear difference and differential equations](../control/solutions-of-linear-difference-and-differential-equations.md)
+- [Learning issue #15](https://github.com/longhongc/robotics-engineering-notes/issues/15)
