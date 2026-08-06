@@ -16,15 +16,15 @@ This is true even if the original variables are not normally distributed.
 
 CLT applies to the sum:
 
-[
+\[
 S_N = X_1 + X_2 + \dots + X_N
-]
+\]
 
 and also to the average:
 
-[
+\[
 \bar{X} = \frac{X_1 + X_2 + \dots + X_N}{N}
-]
+\]
 
 The average is just a scaled version of the sum, so both become approximately normal.
 
@@ -34,14 +34,14 @@ The sum is the core reason CLT works.
 
 # 3. The variables do NOT need identical distributions
 
-The variables (X_i) can come from different distributions.
+The variables \(X_i\) can come from different distributions.
 
 Example:
 
-* (X_1): uniform distribution
-* (X_2): exponential distribution
-* (X_3): binomial distribution
-* (X_4): any other distribution
+* \(X_1\): uniform distribution
+* \(X_2\): exponential distribution
+* \(X_3\): binomial distribution
+* \(X_4\): any other distribution
 
 Their sum can still approach a normal distribution.
 
@@ -61,15 +61,15 @@ If variables are strongly dependent, CLT can fail.
 
 Example of failure:
 
-[
+\[
 Y = -X
-]
+\]
 
 Then:
 
-[
+\[
 X + Y = 0
-]
+\]
 
 No randomness remains → NOT normal.
 
@@ -117,14 +117,14 @@ Normal distribution is the natural "stable shape" under addition.
 
 Height can be modeled as:
 
-[
+\[
 Height =
 Genetics +
 Nutrition +
 Hormones +
 Environment +
 Biological randomness
-]
+\]
 
 Each factor is a random variable.
 
@@ -166,9 +166,9 @@ Examples:
 
 ### Perfect dependence:
 
-[
+\[
 X_1 = X_2 = \dots = X_N
-]
+\]
 
 Sum is just a scaled version of one variable → not normal.
 
@@ -176,9 +176,9 @@ Sum is just a scaled version of one variable → not normal.
 
 ### Perfect cancellation:
 
-[
+\[
 Y = -X
-]
+\]
 
 Sum is always zero → not normal.
 

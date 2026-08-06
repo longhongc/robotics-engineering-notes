@@ -4,16 +4,16 @@
 
 Non-negative Matrix Factorization (NMF) factorizes a non-negative matrix into two non-negative matrices:
 
-[
+\[
 V \approx WH
-]
+\]
 
 where:
 
-* ( V \in \mathbb{R}^{m \times n}, ; V \ge 0 ) — original data matrix
-* ( W \in \mathbb{R}^{m \times k}, ; W \ge 0 ) — basis matrix
-* ( H \in \mathbb{R}^{k \times n}, ; H \ge 0 ) — coefficient matrix
-* ( k \ll m, n ) — reduced dimension
+* \( V \in \mathbb{R}^{m \times n}, ; V \ge 0 \) — original data matrix
+* \( W \in \mathbb{R}^{m \times k}, ; W \ge 0 \) — basis matrix
+* \( H \in \mathbb{R}^{k \times n}, ; H \ge 0 \) — coefficient matrix
+* \( k \ll m, n \) — reduced dimension
 
 This is a **low-rank approximation with non-negativity constraints**.
 
@@ -21,36 +21,36 @@ This is a **low-rank approximation with non-negativity constraints**.
 
 ## 2. Dimensionality Reduction Interpretation
 
-Each column of (V) is a data vector:
+Each column of \(V\) is a data vector:
 
-[
+\[
 v_j \in \mathbb{R}^{m}
-]
+\]
 
 NMF represents it as:
 
-[
+\[
 v_j \approx W h_j
-]
+\]
 
 where:
 
-[
+\[
 h_j \in \mathbb{R}^{k}
-]
+\]
 
 Since:
 
-[
+\[
 k \ll m
-]
+\]
 
-this reduces dimensionality from (m) to (k).
+this reduces dimensionality from \(m\) to \(k\).
 
 ### Key point:
 
-* Original representation: (v_j \in \mathbb{R}^{m})
-* Reduced representation: (h_j \in \mathbb{R}^{k})
+* Original representation: \(v_j \in \mathbb{R}^{m}\)
+* Reduced representation: \(h_j \in \mathbb{R}^{k}\)
 
 Thus, **H is the compressed representation**.
 
@@ -62,27 +62,27 @@ W acts as a decoder (basis).
 
 Without non-negativity constraints, the problem becomes standard least squares:
 
-[
+\[
 \min_{W,H} |V - WH|_F^2
-]
+\]
 
 If W is fixed, optimal H is given by pseudo-inverse:
 
-[
+\[
 H = W^+ V
-]
+\]
 
 where:
 
-[
+\[
 W^+ = (W^T W)^{-1} W^T
-]
+\]
 
 Similarly:
 
-[
+\[
 W = V H^+
-]
+\]
 
 Thus, unconstrained matrix factorization has closed-form solutions.
 
@@ -92,15 +92,15 @@ Thus, unconstrained matrix factorization has closed-form solutions.
 
 Reconstruction:
 
-[
+\[
 \hat V = WH = W W^+ V
-]
+\]
 
 Matrix:
 
-[
+\[
 P = W W^+
-]
+\]
 
 is a projection matrix.
 
@@ -114,17 +114,17 @@ This is closely related to PCA.
 
 PCA:
 
-[
+\[
 W,H \in \mathbb{R}
-]
+\]
 
 Allows negative values.
 
 NMF:
 
-[
+\[
 W,H \ge 0
-]
+\]
 
 Allows only additive combinations.
 
@@ -136,10 +136,10 @@ This produces **parts-based representations**, which are more interpretable.
 
 Standard NMF solves:
 
-[
+\[
 \min_{W,H \ge 0}
 |V - WH|_F^2
-]
+\]
 
 This is called constrained least squares.
 
@@ -151,25 +151,25 @@ Important distinction:
 
 If W is fixed:
 
-[
+\[
 \min_{H \ge 0} |V - WH|^2
-]
+\]
 
 This is Non-negative Least Squares (NNLS), which is convex and solvable in polynomial time.
 
 If H is fixed:
 
-[
+\[
 \min_{W \ge 0} |V - WH|^2
-]
+\]
 
 Also convex.
 
 However, jointly optimizing both:
 
-[
+\[
 \min_{W,H \ge 0} |V - WH|^2
-]
+\]
 
 is:
 
@@ -187,9 +187,9 @@ This creates multiple local minima.
 
 Linear Programming:
 
-[
+\[
 \min_{x \ge 0} c^T x
-]
+\]
 
 Properties:
 
@@ -200,17 +200,17 @@ Properties:
 
 NNLS:
 
-[
+\[
 \min_{x \ge 0} |Ax - b|^2
-]
+\]
 
 Also convex.
 
 NMF:
 
-[
+\[
 \min_{W,H \ge 0} |V - WH|^2
-]
+\]
 
 Not convex because of bilinear terms.
 
@@ -229,17 +229,17 @@ Unconstrained least squares:
 
 Data lies in a linear subspace:
 
-[
+\[
 {Wh : h \in \mathbb{R}^k}
-]
+\]
 
 NMF:
 
 Data lies in a convex cone:
 
-[
+\[
 {Wh : h \ge 0}
-]
+\]
 
 Cone structure restricts representation and promotes sparsity.
 
@@ -257,13 +257,13 @@ Non-negativity prevents cancellation.
 
 Representation becomes:
 
-[
+\[
 v_j = \sum_i h_{ij} w_i
-]
+\]
 
 with:
 
-many (h_{ij} = 0).
+many \(h_{ij} = 0\).
 
 This produces sparse encoding.
 
@@ -281,15 +281,15 @@ Each component uses only a few features.
 
 Encoding:
 
-[
+\[
 h_j = \text{compressed representation of } v_j
-]
+\]
 
 Decoding:
 
-[
+\[
 v_j \approx W h_j
-]
+\]
 
 Thus:
 

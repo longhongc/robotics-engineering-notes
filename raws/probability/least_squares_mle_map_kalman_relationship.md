@@ -4,16 +4,16 @@
 
 We start with the standard linear model:
 
-[
+\[
 y = Hx + \epsilon
-]
+\]
 
 where:
 
-* (y): measurement vector
-* (H): measurement matrix
-* (x): unknown parameter vector
-* (\epsilon): noise
+* \(y\): measurement vector
+* \(H\): measurement matrix
+* \(x\): unknown parameter vector
+* \(\epsilon\): noise
 
 ---
 
@@ -21,32 +21,31 @@ where:
 
 Assume Gaussian noise:
 
-[
+\[
 \epsilon \sim \mathcal{N}(0, R)
-]
+\]
 
 Likelihood:
 
-[
+\[
 p(y|x) = \mathcal{N}(Hx, R)
-]
+\]
 
 Maximizing likelihood is equivalent to minimizing:
 
-[
+\[
 J(x) =
 (y - Hx)^T R^{-1} (y - Hx)
-]
+\]
 
 Solution:
 
-[
+\[
 \hat{x}_{MLE}
-=============
-
+=
 (H^T R^{-1} H)^{-1}
 H^T R^{-1} y
-]
+\]
 
 This is called:
 
@@ -58,18 +57,17 @@ This is called:
 
 ### Case A: White Gaussian noise, equal variance
 
-[
+\[
 R = \sigma^2 I
-]
+\]
 
 Then:
 
-[
+\[
 \hat{x}
-=======
-
+=
 (H^T H)^{-1} H^T y
-]
+\]
 
 This is:
 
@@ -79,9 +77,9 @@ This is:
 
 ### Case B: Gaussian noise, unequal variances or correlated
 
-[
+\[
 R \neq \sigma^2 I
-]
+\]
 
 Then solution becomes:
 
@@ -89,9 +87,9 @@ Then solution becomes:
 
 Weights are:
 
-[
+\[
 R^{-1}
-]
+\]
 
 Interpretation:
 
@@ -104,36 +102,34 @@ Interpretation:
 
 Now assume prior on parameter:
 
-[
+\[
 x \sim \mathcal{N}(x_0, P_0)
-]
+\]
 
 Posterior:
 
-[
+\[
 p(x|y) \propto p(y|x) p(x)
-]
+\]
 
 MAP estimate minimizes:
 
-[
+\[
 J(x)
-====
-
+=
 (y-Hx)^T R^{-1} (y-Hx)
 +
 (x-x_0)^T P_0^{-1} (x-x_0)
-]
+\]
 
 Solution:
 
-[
+\[
 \hat{x}_{MAP}
-=============
-
+=
 (H^T R^{-1} H + P_0^{-1})^{-1}
 (H^T R^{-1} y + P_0^{-1} x_0)
-]
+\]
 
 ---
 
@@ -143,27 +139,26 @@ MAP is equivalent to least squares with regularization.
 
 If:
 
-[
+\[
 x_0 = 0
-]
+\]
 
 and
 
-[
+\[
 P_0 = \frac{1}{\lambda} I
-]
+\]
 
 Then:
 
-[
+\[
 \hat{x}
-=======
-
+=
 \arg\min
 |y-Hx|^2
 +
 \lambda |x|^2
-]
+\]
 
 This is:
 
@@ -182,37 +177,35 @@ Kalman filter performs the same estimation recursively.
 
 Prior:
 
-[
+\[
 x \sim \mathcal{N}(x_{prior}, P_{prior})
-]
+\]
 
 Measurement update:
 
-[
+\[
 x_{posterior}
-=============
-
+=
 x_{prior}
 +
 K(y - H x_{prior})
-]
+\]
 
 Kalman gain:
 
-[
+\[
 K =
 P_{prior} H^T
 (H P_{prior} H^T + R)^{-1}
-]
+\]
 
 Posterior covariance:
 
-[
+\[
 P_{posterior}
-=============
-
+=
 (I - KH) P_{prior}
-]
+\]
 
 ---
 
@@ -245,9 +238,9 @@ Inverse covariance represents information.
 
 Appears in cost function:
 
-[
+\[
 (x-\mu)^T \Sigma^{-1} (x-\mu)
-]
+\]
 
 Interpretation:
 
@@ -260,15 +253,14 @@ Interpretation:
 
 General estimation problem:
 
-[
+\[
 \hat{x}
-=======
-
+=
 \arg\min
 \underbrace{(y-Hx)^T R^{-1} (y-Hx)}*{\text{measurement term}}
 +
 \underbrace{(x-x_0)^T P_0^{-1} (x-x_0)}*{\text{prior term}}
-]
+\]
 
 Cases:
 
@@ -301,4 +293,3 @@ Kalman Filter
 # 10. One-Sentence Summary
 
 All these methods estimate parameters by minimizing uncertainty-weighted squared error; they differ only in whether a prior is included and whether estimation is done in batch or recursively.
-
