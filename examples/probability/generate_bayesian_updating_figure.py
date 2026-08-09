@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate linked 3D, contour, and 2D Bayesian-update views."""
+"""Generate separate slice-geometry and Bayesian-update figures."""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-DEFAULT_OUTPUT = Path("raws/probability/assets/bayesian-updating-surface.svg")
+DEFAULT_OUTPUT_DIR = Path("raws/probability/assets")
 PRIOR_MEAN = 0.0
 PRIOR_STD = 1.4
 THETA_SLICE = PRIOR_MEAN
@@ -51,8 +51,8 @@ def add_grid(axis: plt.Axes) -> None:
     axis.grid(True, alpha=0.25)
 
 
-def generate_figure(output: Path) -> None:
-    output.parent.mkdir(parents=True, exist_ok=True)
+def generate_figure(output_dir: Path) -> None:
+    output_dir.mkdir(parents=True, exist_ok=True)
 
     theta = np.linspace(-3.5, 3.5, 300)
     observations = np.linspace(-3.5, 3.5, 300)
@@ -81,11 +81,12 @@ def generate_figure(output: Path) -> None:
     )
     conditional_slice = normal_pdf(observations, THETA_SLICE, OBSERVATION_STD)
 
-    plt.rcParams.update({"font.size": 8.5, "mathtext.fontset": "stix"})
-    figure = plt.figure(figsize=(16, 8.5), constrained_layout=True)
-    grid = figure.add_gridspec(2, 4)
+    plt.rcParams.update({"font.size": 9, "mathtext.fontset": "stix"})
 
-    surface_axis = figure.add_subplot(grid[0, 0], projection="3d")
+    slicing_figure = plt.figure(figsize=(12, 9), constrained_layout=True)
+    slicing_grid = slicing_figure.add_gridspec(2, 2)
+
+    surface_axis = slicing_figure.add_subplot(slicing_grid[0, 0], projection="3d")
     surface_axis.plot_wireframe(
         wire_observations,
         wire_theta,
@@ -118,10 +119,10 @@ def generate_figure(output: Path) -> None:
     surface_axis.set_ylabel(r"parameter $\theta$", labelpad=0)
     surface_axis.set_zlabel(r"$p(x\mid\theta)$", labelpad=0)
     surface_axis.set_title("Sparse 3D wireframe")
-    surface_axis.legend(loc="upper left", fontsize=7)
+    surface_axis.legend(loc="upper left", fontsize=8)
     surface_axis.view_init(elev=27, azim=-62)
 
-    slice_map_axis = figure.add_subplot(grid[0, 1])
+    slice_map_axis = slicing_figure.add_subplot(slicing_grid[0, 1])
     contour_levels = np.linspace(0.0, float(map_density.max()), 17)
     contour = slice_map_axis.contourf(
         map_observations,
@@ -153,10 +154,10 @@ def generate_figure(output: Path) -> None:
     slice_map_axis.set_title("Top-down slice map")
     slice_map_axis.set_xlabel(r"observation $x$")
     slice_map_axis.set_ylabel(r"parameter $\theta$")
-    slice_map_axis.legend(loc="upper left", fontsize=7)
-    figure.colorbar(contour, ax=slice_map_axis, label=r"$p(x\mid\theta)$")
+    slice_map_axis.legend(loc="upper left", fontsize=8)
+    slicing_figure.colorbar(contour, ax=slice_map_axis, label=r"$p(x\mid\theta)$")
 
-    conditional_axis = figure.add_subplot(grid[0, 2])
+    conditional_axis = slicing_figure.add_subplot(slicing_grid[1, 0])
     conditional_axis.plot(
         observations,
         conditional_slice,
@@ -168,14 +169,28 @@ def generate_figure(output: Path) -> None:
     conditional_axis.set_ylabel("density over observations")
     add_grid(conditional_axis)
 
-    likelihood_axis = figure.add_subplot(grid[0, 3])
+    likelihood_axis = slicing_figure.add_subplot(slicing_grid[1, 1])
     likelihood_axis.plot(theta, likelihood, color="#1f77b4", linewidth=2.2)
     likelihood_axis.set_title(rf"Vertical slice: $L(\theta\mid x={OBSERVATION:g})$")
     likelihood_axis.set_xlabel(r"parameter $\theta$")
     likelihood_axis.set_ylabel(r"$p(x_{obs}\mid\theta)$")
     add_grid(likelihood_axis)
 
-    prior_axis = figure.add_subplot(grid[1, 0])
+    slicing_figure.suptitle(
+        "How to read a conditional-density surface",
+        fontsize=14,
+    )
+    slicing_figure.savefig(
+        output_dir / "bayesian-slicing.svg",
+        format="svg",
+        metadata={"Creator": __file__},
+    )
+    plt.close(slicing_figure)
+
+    update_figure = plt.figure(figsize=(12, 8), constrained_layout=True)
+    update_grid = update_figure.add_gridspec(2, 2)
+
+    prior_axis = update_figure.add_subplot(update_grid[0, 0])
     prior_axis.plot(theta, prior, color="#6a3d9a", linewidth=2.2)
     prior_axis.axvline(PRIOR_MEAN, color="#777777", linestyle="--", linewidth=1)
     prior_axis.set_title(rf"Prior $p(\theta)$, $\mu_0={PRIOR_MEAN:g}$")
@@ -183,14 +198,14 @@ def generate_figure(output: Path) -> None:
     prior_axis.set_ylabel("density")
     add_grid(prior_axis)
 
-    product_axis = figure.add_subplot(grid[1, 1])
+    product_axis = update_figure.add_subplot(update_grid[0, 1])
     product_axis.plot(theta, unnormalized_posterior, color="#ff7f0e", linewidth=2.2)
     product_axis.set_title("Unnormalized posterior numerator")
     product_axis.set_xlabel(r"parameter $\theta$")
     product_axis.set_ylabel(r"$p(x_{obs}\mid\theta)p(\theta)$")
     add_grid(product_axis)
 
-    posterior_axis = figure.add_subplot(grid[1, 2])
+    posterior_axis = update_figure.add_subplot(update_grid[1, 0])
     posterior_axis.plot(theta, posterior, color="#2ca02c", linewidth=2.2)
     posterior_axis.axvline(posterior_mean, color="#777777", linestyle="--", linewidth=1)
     posterior_axis.set_title(
@@ -201,7 +216,7 @@ def generate_figure(output: Path) -> None:
     posterior_axis.set_ylabel(r"$p(\theta\mid x_{obs})$")
     add_grid(posterior_axis)
 
-    evidence_axis = figure.add_subplot(grid[1, 3])
+    evidence_axis = update_figure.add_subplot(update_grid[1, 1])
     evidence_axis.plot(observations, evidence, color="#8c564b", linewidth=2.2)
     evidence_axis.axvline(OBSERVATION, color="#777777", linestyle="--", linewidth=1)
     evidence_axis.set_title(r"Evidence $p(x)$ across possible observations")
@@ -209,24 +224,24 @@ def generate_figure(output: Path) -> None:
     evidence_axis.set_ylabel("density")
     add_grid(evidence_axis)
 
-    figure.suptitle(
-        "Bayesian updating: identify the slice before interpreting the curve",
+    update_figure.suptitle(
+        "How the prior and likelihood form the posterior",
         fontsize=14,
     )
-    figure.savefig(
-        output,
-        format=output.suffix.lstrip("."),
+    update_figure.savefig(
+        output_dir / "bayesian-updating.svg",
+        format="svg",
         metadata={"Creator": __file__},
     )
-    plt.close(figure)
+    plt.close(update_figure)
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
+    parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
     args = parser.parse_args()
-    generate_figure(args.output)
-    print(f"Generated {args.output}")
+    generate_figure(args.output_dir)
+    print(f"Generated figures in {args.output_dir}")
 
 
 if __name__ == "__main__":
