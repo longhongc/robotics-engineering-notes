@@ -104,8 +104,10 @@ q''(s)=\frac{d^2q}{ds^2}
 $$
 
 are derivatives with respect to the path coordinate. A dot therefore describes
-the physical time evolution of the robot, while a prime describes the shape of
-the path itself.
+the physical time evolution of the robot, while a prime describes variation
+with respect to the chosen path coordinate. That coordinate may be arc length,
+normalized progress, a waypoint index, or another monotone parameter, so
+$q''(s)$ is not automatically geometric curvature.
 
 Applying the chain rule gives the joint velocity:
 
@@ -121,8 +123,8 @@ $$
 
 The two terms have different meanings:
 
-- $q''(s)\dot{s}^{2}$ is acceleration caused by the curvature of the path
-  while moving along it;
+- $q''(s)\dot{s}^{2}$ is the path-coordinate second-derivative contribution
+  while moving along the path;
 - $q'(s)\ddot{s}$ is acceleration caused by changing the timing or playback
   speed.
 
@@ -135,6 +137,43 @@ $$
 Therefore, the multiplier ramp cannot be selected independently of the path.
 The same multiplier change can be harmless on one part of a path and violate
 an acceleration limit on another part.
+
+### Path parameter versus geometric curvature
+
+The image of $q(s)$ can be the same geometric curve under many different
+parameterizations. Let $\ell$ denote arc length and write
+
+$$
+q(s)=r(\ell(s)).
+$$
+
+For a regular curve, the second derivative with respect to the chosen path
+coordinate is
+
+$$
+q''(s)
+=
+\left(\frac{d\ell}{ds}\right)^2\frac{d^2r}{d\ell^2}
++
+\frac{d^2\ell}{ds^2}\frac{dr}{d\ell}.
+$$
+
+The first term is the geometric-curvature contribution expressed in the
+chosen coordinate, while the second is a tangential contribution caused by
+how progress is distributed along the curve. When $s$ is arc length, the
+second term vanishes and $q''(s)$ has the direct geometric-curvature
+interpretation. For an arbitrary progress coordinate, it should be treated as
+a path-coordinate derivative instead.
+
+For example,
+
+$$
+q(s)=(s^2,0), \qquad s\geq 0,
+$$
+
+traces a straight line but has $q''(s)=(2,0)\neq0$. The nonzero second
+derivative comes entirely from nonuniform progress along the line; it is not
+geometric bending.
 
 ## 4. Why the control loop stays fixed
 
@@ -208,9 +247,9 @@ The important observations are:
   reaches zero; and
 - the output acceleration stays within the displayed limit.
 
-## 6. Curved paths require the path-curvature term
+## 6. Curved paths and the path-coordinate second-derivative term
 
-For a curved scalar path such as
+For a curved scalar path with a uniform parameter, such as
 
 $$
 q(s)=A\sin(ks),
@@ -222,6 +261,11 @@ $$
 \ddot{q} = -Ak^2\sin(ks)\dot{s}^{2}
            + Ak\cos(ks)\ddot{s}.
 $$
+
+In this uniformly parameterized example, the first term represents the
+path's changing shape. With an arbitrary path coordinate, interpret the same
+term as the path-coordinate second-derivative contribution rather than
+automatically as geometric curvature.
 
 A conservative scalar bound is
 
@@ -243,7 +287,7 @@ inequality. A production retimer should account for all constrained joints,
 the signs of the terms, jerk, actuator limits, controller behavior, and the
 available stopping distance.
 
-The sine-path figure makes the extra curvature term visible:
+The sine-path figure makes the extra path-coordinate acceleration term visible:
 
 ![Sine-path retiming with path-curvature acceleration](assets/path-timing-retiming-sine.svg)
 
@@ -278,7 +322,10 @@ differences. If $s$ is normalized instead of being an index, scale the
 derivatives consistently with that choice.
 
 Second differences amplify waypoint noise. More importantly, the derivative
-values depend on the interpolation model. Linear interpolation has piecewise
+values depend on the interpolation model. When $s$ is a waypoint index,
+$q''_i$ measures change with respect to that index; it is not geometric
+curvature unless the index has been calibrated to an appropriate geometric
+coordinate. Linear interpolation has piecewise
 constant $q'(s)$ and discontinuous changes at corners; a smooth spline gives
 usable derivatives but defines a smoothed path between the waypoints. The
 interpolation choice must therefore be part of the retiming design.
@@ -334,9 +381,9 @@ $$
 \min_j u_j.
 $$
 
-If $b_j$ is approximately zero, the curvature term $c_j$ must already
-satisfy that joint's acceleration limits; changing the multiplier rate cannot
-help that joint at the current path position. If the intervals do not
+If $b_j$ is approximately zero, the path-coordinate term $c_j$ must
+already satisfy that joint's acceleration limits; changing the multiplier rate
+cannot help that joint at the current path position. If the intervals do not
 intersect, the current multiplier is too high for a locally feasible ramp, so
 the retimer must reduce speed earlier or use a forward braking calculation.
 
@@ -436,7 +483,8 @@ $$
 \boxed{q(t)=q(s(t))}
 $$
 
-- $q(s)$ is the geometric path;
+- $q(s)$ is the path expressed in a chosen progress coordinate, which is not
+  necessarily arc length;
 - $s(t)$ is the timing law;
 - the fixed-rate executor advances $s$ by a multiplier-scaled amount each
   cycle;
