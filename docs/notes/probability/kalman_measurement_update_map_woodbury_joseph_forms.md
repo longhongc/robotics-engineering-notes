@@ -26,8 +26,8 @@ $$
 x \sim \mathcal N(x^-,P^-).
 $$
 
-Here (x^-) and (P^-) are the predicted state and covariance, (y) is the
-new measurement, and (R) is the measurement-noise covariance. The prior
+Here $x^-$ and $P^-$ are the predicted state and covariance, $y$ is the
+new measurement, and $R$ is the measurement-noise covariance. The prior
 error and measurement noise are assumed to be uncorrelated.
 
 ## 1. Gaussian MAP update
@@ -98,7 +98,7 @@ uses factorizations instead of explicitly forming matrix inverses.
 
 ## 3. Woodbury reveals the Kalman gain
 
-The MAP covariance appears to require an (n\times n) inverse in state space:
+The MAP covariance appears to require an $n\times n$ inverse in state space:
 
 $$
 P^+ =
@@ -144,8 +144,8 @@ $$
 P^+=(I-KH)P^-.
 $$
 
-The important computational change is that the inverse is now (m\times m),
-where (m) is the measurement dimension, rather than (n\times n), where
+The important computational change is that the inverse is now $m\times m$,
+where $m$ is the measurement dimension, rather than $n\times n$, where
 $n$ is the state dimension. This is especially useful when measurements are
 lower-dimensional than the state.
 
@@ -159,7 +159,7 @@ $$
 =K.
 $$
 
-Substitute this into the MAP mean and group the terms multiplying (x^-):
+Substitute this into the MAP mean and group the terms multiplying $x^-$:
 
 $$
 \begin{aligned}
@@ -195,7 +195,7 @@ $$
 e^- = x-x^-.
 $$
 
-Using (y=Hx+v) and the innovation-form update,
+Using $y=Hx+v$ and the innovation-form update,
 
 $$
 \begin{aligned}
@@ -206,7 +206,7 @@ e^+
 \end{aligned}
 $$
 
-For uncorrelated (e^-) and (v), the covariance rule
+For uncorrelated $e^-$ and $v$, the covariance rule
 
 $$
 \operatorname{Cov}(Au+Bv)
@@ -259,14 +259,14 @@ assuming Gaussian distributions. Gaussianity is what upgrades that estimator
 to exact Bayesian inference and makes the posterior mean equal its mode.
 
 For a nonlinear measurement, even Gaussian state and noise can produce a
-non-Gaussian posterior. For example, (y=x^2+v) can make both positive and
-negative values of (x) plausible, producing a bimodal posterior. In that
+non-Gaussian posterior. For example, $y=x^2+v$ can make both positive and
+negative values of $x$ plausible, producing a bimodal posterior. In that
 case, posterior mean and MAP need not coincide.
 
 ## 7. Scalar intuition
 
-For a direct scalar measurement (y=x+v), with prior variance (P^-) and
-measurement variance (R),
+For a direct scalar measurement $y=x+v$, with prior variance $P^-$ and
+measurement variance $R$,
 
 $$
 K=\frac{P^-}{P^-+R}.
@@ -278,8 +278,8 @@ $$
 x^+=(1-K)x^-+Ky.
 $$
 
-If (R) is small, the measurement is reliable and (K) is close to one. If
-$P^-$ is small, the prior is reliable and (K) is close to zero. The matrix
+If $R$ is small, the measurement is reliable and $K$ is close to one. If
+$P^-$ is small, the prior is reliable and $K$ is close to zero. The matrix
 formula is the multidimensional version of this uncertainty-weighted
 compromise.
 
@@ -290,4 +290,3 @@ compromise.
 - [Bayesian updating: prior, likelihood, evidence, and posterior](bayesian-updating-prior-likelihood-evidence-posterior.md)
 - [Learning issue #26](https://github.com/longhongc/robotics-engineering-notes/issues/26)
 - [Learning issue #27](https://github.com/longhongc/robotics-engineering-notes/issues/27)
-
