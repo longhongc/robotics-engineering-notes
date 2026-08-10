@@ -12,3 +12,4 @@ Notes on linear systems, stability, sensitivity, and the behavior of dynamical s
 - [Linear difference and differential equations](solutions-of-linear-difference-and-differential-equations.md)
 - [Matrix exponential properties](matrix-exponential-properties.md)
 - [Sensitivity of linear systems and condition numbers](sensitivity-linear-systems-condition-number.md)
+- [Kalman and Luenberger observers: dynamics versus uncertainty](kalman_and_luenberger_observers.md)
