@@ -217,6 +217,11 @@ Kalman filter is:
 * Recursive weighted least squares
 * Recursive Bayesian inference
 
+Under the linear-Gaussian assumptions, this is also the exact recursive
+posterior mean and MAP estimate. More generally, the same gain is the optimal
+linear minimum-mean-square-error update under suitable first- and second-moment
+assumptions, even when the underlying distributions are not Gaussian.
+
 ---
 
 # 6. Unified Interpretation Table
@@ -246,6 +251,19 @@ Interpretation:
 
 * Small variance → strong constraint
 * Large variance → weak constraint
+
+For Gaussian fusion, information adds directly:
+
+\[
+\Lambda_{posterior}
+=\Lambda_{prior}+H^TR^{-1}H,
+\qquad
+\Lambda_{prior}=P_{prior}^{-1}.
+\]
+
+This is the information-form view of the same MAP update. The detailed
+derivation of the Kalman mean, covariance, Woodbury identity, and Joseph form
+is in [Kalman measurement update from MAP: Woodbury and Joseph forms](kalman_measurement_update_map_woodbury_joseph_forms.md).
 
 ---
 
