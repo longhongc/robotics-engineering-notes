@@ -26,6 +26,24 @@ Codex opens a draft pull request and comments on the issue with the decision, PR
 
 `curation:archive-only` and `curation:review-later` remain open by default. They are not processed by the normal ready queue.
 
+## Note granularity and linking
+
+The default structure is a set of focused, self-contained notes connected by
+subject indexes, related-material links, and prerequisite links. This keeps
+each note readable in one sitting and lets concepts evolve independently.
+
+Prefer a single larger note when concepts share the same assumptions,
+derivation, worked example, or failure modes, and splitting them would force
+the reader to reconstruct one argument across several pages. Prefer separate
+notes when a concept has an independent learning goal, can stand alone, or
+needs a different pace, audience, or future revision boundary.
+
+Use indexes and hub pages for systematic layout and navigation; do not make
+one note large merely to provide a global table of contents. Avoid splitting
+when it would duplicate definitions or hide essential context. During
+curation, record why the selected strategy preserves coherence and link the
+resulting notes explicitly.
+
 ## Review and processing requests
 
 Examples:
