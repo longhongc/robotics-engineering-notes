@@ -10,3 +10,4 @@ Notes on uncertainty, statistics, stochastic processes, and estimation for robot
 - [Discrete vs. continuous Markov matrices](discrete-vs-continuous-markov-matrices.md) and [the eigenvalue-one interpretation](eigenvalue-one-markov-matrix.md)
 - [Bayesian updating: prior, likelihood, evidence, and posterior](bayesian-updating-prior-likelihood-evidence-posterior.md)
 - [Least squares, maximum likelihood, MAP, and Kalman filtering](least_squares_mle_map_kalman_relationship.md)
+- [Kalman measurement update from MAP: Woodbury and Joseph forms](kalman_measurement_update_map_woodbury_joseph_forms.md)
