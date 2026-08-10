@@ -105,7 +105,7 @@ P^+ =
 \left((P^-)^{-1}+H^TR^{-1}H\right)^{-1}.
 \]
 
-The Woodbury identity is
+The Woodbury identity, also known as the matrix inversion lemma, is
 
 \[
 (A+UCV)^{-1}
