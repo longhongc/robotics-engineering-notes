@@ -1,103 +1,210 @@
 # Perron–Frobenius Theorem: Dynamics and Diagonalizability
 
-## Core Question
+## Core question
 
 When analyzing the iteration
 
 $$
-x_{k+1} = A x_k
+x_{k+1}=Ax_k,
 $$
 
-do we need to assume that the matrix $A$ is diagonalizable in order to conclude Perron–Frobenius–type long-term behavior?
+do we need to assume that $A$ is diagonalizable in order to conclude Perron–Frobenius-type long-term behavior?
 
-**Answer:** No. Diagonalizability is not required.
+**No.** A strict spectral gap is the important condition for a single dominant mode. Full diagonalizability is not required.
 
 ---
 
 ## Setting
 
-Let $A$ be a positive or irreducible nonnegative square matrix.
+Let $A$ be a nonnegative square matrix, and let
 
-Let:
-- \( \lambda_{\max} \) be the Perron (largest) eigenvalue
-- \( v_{\max} \) be the corresponding right Perron eigenvector
-- \( w_{\max} \) be the corresponding left Perron eigenvector
+$$
+r=\rho(A)
+$$
+
+be its spectral radius. The Perron–Frobenius theorem provides positive right and left eigenvectors for the Perron eigenvalue:
+
+$$
+Av=rv,
+\qquad
+w^T A=rw^T.
+$$
+
+The assumptions on $A$ determine whether $r$ is strictly dominant:
+
+| Assumption | Consequence for the peripheral spectrum |
+|---|---|
+| $A>0$, or more generally $A$ primitive | $r$ is the only eigenvalue with modulus $r$ |
+| $A$ irreducible with period $h>1$ | There are $h$ eigenvalues on the circle $\lvert\lambda\rvert=r$ |
+
+Here, primitive means that $A^m>0$ entrywise for some positive integer $m$. Every positive matrix is primitive. Irreducibility alone does not guarantee a single dominant mode in discrete time.
 
 ---
 
-## What Perron–Frobenius Guarantees
+## What Perron–Frobenius guarantees
 
-The Perron–Frobenius theorem guarantees the following:
+For an irreducible nonnegative matrix:
 
-- \( \lambda_{\max} \) is real and strictly positive  
-- \( \lambda_{\max} \) is simple (algebraic multiplicity 1)  
-- \( v_{\max} \) has strictly positive entries  
-- No other eigenvalue satisfies \( |\lambda_i| = \lambda_{\max} \)  
-- Left and right Perron eigenvectors both exist  
+- $r$ is real and strictly positive;
+- $r$ is algebraically simple;
+- there are strictly positive right and left Perron eigenvectors $v$ and $w$;
+- the remaining eigenvalues satisfy $\lvert\lambda\rvert\le r$.
+
+If $A$ is primitive, the inequality is strict for every other eigenvalue:
+
+$$
+\lvert\lambda_i\rvert<r,
+\qquad i\ne\mathrm{PF}.
+$$
+
+For an irreducible matrix of period $h>1$, the other peripheral eigenvalues prevent ordinary convergence to one direction. They instead produce periodic or oscillatory behavior.
 
 ---
 
-## What Perron–Frobenius Does *Not* Guarantee
+## Left and right eigenvectors: detector and reconstruction
 
-The theorem does **not** guarantee:
+For a nonsymmetric matrix, a right eigenvector describes the direction of a mode, while a left eigenvector measures how much of that mode is present. Scale $v$ and $w$ so that
 
-- That $A$ is diagonalizable  
-- That all eigenvectors are linearly independent  
-- That Jordan blocks do not exist for non-Perron eigenvalues  
+$$
+w^T v=1.
+$$
 
-Thus, writing an arbitrary vector as a sum of eigenvectors is, in general, an assumption and not always valid.
+Then
+
+$$
+P=vw^T
+$$
+
+is the rank-one spectral projector associated with the simple eigenvalue $r$. Applied to a state $x$, it works in two steps:
+
+$$
+Px=vw^Tx=v\underbrace{(w^Tx)}_{\text{modal coefficient}}.
+$$
+
+The left eigenvector $w$ is therefore the **detector** for the mode, and the right eigenvector $v$ is the **reconstruction direction**.
+
+For a diagonalizable matrix with right eigenvectors $v_i$, collect them into $V$:
+
+$$
+A=V\Lambda V^{-1}.
+$$
+
+The rows of $V^{-1}$ are the corresponding left eigenvectors $w_i^T$. With the dual normalization
+
+$$
+w_i^T v_j=\delta_{ij},
+$$
+
+the decomposition becomes
+
+$$
+A=\sum_i \lambda_i v_iw_i^T,
+\qquad
+A^k=\sum_i \lambda_i^k v_iw_i^T.
+$$
+
+The orthogonal case is a special simplification. For a real symmetric matrix, $w_i=v_i$, so the projectors are $v_iv_i^T$. For a general nonsymmetric matrix, the eigenbasis can be oblique and $w_i$ usually differs from $v_i$.
+
+This left–right expansion resembles an SVD rank-one expansion, but the constructions are different: an SVD always exists and uses orthonormal singular vectors, whereas a complete eigenvector expansion requires diagonalizability.
 
 ---
 
-## Why Diagonalizability Is Not Needed
+## Why diagonalizability is not required
 
-Even when $A$ is not diagonalizable, the powers of $A$ admit a dominant-term expansion:
-
-$$
-A^k = \lambda_{\max}^k \, v_{\max} w_{\max}^T + \text{lower-order terms}
-$$
-
-The lower-order terms involve factors of the form
+If $A$ is primitive, $r$ is a simple strictly dominant eigenvalue. Even if the remaining part of $A$ contains Jordan blocks, its powers have the form
 
 $$
-k^m \lambda_i^k \quad \text{with } |\lambda_i| < \lambda_{\max}
+A^k=r^kP+R_k,
+\qquad
+P=vw^T,
 $$
 
-Polynomial growth in $k$ cannot overcome exponential dominance by \( \lambda_{\max}^k \).
+where, for some constants $C>0$ and integer $q\ge0$,
+
+$$
+\lVert R_k\rVert\le Ck^q\rho^k
+$$
+
+for a number $\rho<r$. The polynomial factor comes from defective Jordan blocks. It cannot overcome the exponential gap because
+
+$$
+k^q\left(\frac{\rho}{r}\right)^k\longrightarrow0.
+$$
+
+Consequently,
+
+$$
+\frac{A^k}{r^k}\longrightarrow vw^T.
+$$
+
+The limit is a spectral projection, so it does not require an eigenvector expansion for every eigenvalue.
+
+For a nonzero initial state $x_0\ge0$, positivity of $w$ gives $w^Tx_0>0$, and therefore
+
+$$
+A^kx_0
+=r^k v(w^Tx_0)+o(r^k).
+$$
+
+The dominant direction is $v$, while $w^Tx_0$ determines how strongly the initial state excites that direction. For a signed initial state, this coefficient can be zero, in which case the dominant term is absent for that particular state.
 
 ---
 
-## Correct Long-Term Formula
+## Primitive versus irreducible dynamics
 
-For any initial vector $x_0 \ge 0$,
+The distinction matters in discrete-time systems. Consider the irreducible nonnegative matrix
 
 $$
-A^k x_0
-=
-\lambda_{\max}^k \, v_{\max} (w_{\max}^T x_0)
-+ O((\rho + \epsilon)^k)
+A=\begin{bmatrix}0&1\\\\1&0\end{bmatrix}.
 $$
 
-where \( \rho = \max_{i \ne \max} |\lambda_i| \).
+It has eigenvalues $1$ and $-1$, so both have modulus one. Starting from $x_0=(1,0)^T$, the sequence alternates:
 
-This result follows from **spectral projection**, not from eigenvector decomposition.
+$$
+x_0=\begin{bmatrix}1\\\\0\end{bmatrix},
+\quad
+x_1=\begin{bmatrix}0\\\\1\end{bmatrix},
+\quad
+x_2=\begin{bmatrix}1\\\\0\end{bmatrix},\ldots
+$$
+
+The matrix is irreducible but periodic, not primitive. Its states do not converge to one direction, even though Perron–Frobenius still supplies a positive eigenvector for $r=1$.
+
+For a primitive matrix and $x_0\ge0$, the normalized state
+
+$$
+\widehat{x}_k=\frac{A^kx_0}{\mathbf{1}^TA^kx_0}
+$$
+
+does converge:
+
+$$
+\widehat{x}_k\longrightarrow\frac{v}{\mathbf{1}^Tv}.
+$$
+
+Without primitivity or another strict spectral-gap assumption, this convergence statement must be replaced by a statement about the peripheral modes.
 
 ---
 
-## Dynamical Consequences
+## Dynamical consequences
 
-The Perron eigenvector always determines the asymptotic *shape*, while the Perron eigenvalue determines the *magnitude* behavior.
+Under the strict-dominance condition:
 
-- If \( \lambda_{\max} > 1 \): exponential growth along \( v_{\max} \)
-- If \( \lambda_{\max} = 1 \): stable shape (no growth or decay)
-- If \( 0 < \lambda_{\max} < 1 \): exponential decay to zero
+- if $r>1$, the magnitude grows exponentially along $v$;
+- if $r=1$, the dominant mode has constant magnitude;
+- if $0<r<1$, every state decays exponentially to zero;
+- normalized nonnegative states converge to the normalized Perron vector.
 
-In all cases, normalized states converge to \( v_{\max} \).
+These conclusions describe the dominant mode, not necessarily a complete closed-form solution. A complete solution may still require generalized eigenvectors and every Jordan block.
 
 ---
 
-## Key Takeaway
+## Key takeaway
 
-Perron–Frobenius theory does not rely on diagonalizability.  
-Even in the presence of Jordan blocks, the Perron eigenvalue dominates all other spectral components, ensuring predictable long-term behavior governed by a single positive eigenvector.
+Perron–Frobenius theory does not rely on diagonalizability. The left Perron eigenvector extracts the coefficient of the right Perron mode, and a strict spectral gap makes that rank-one projection dominate all defective residual modes. For discrete-time convergence, however, irreducibility alone is not enough: primitivity, or an equivalent strict-dominance condition, is required for convergence to a single direction.
 
+## Related material
+
+- [Dominant eigenvalues and qualitative behavior of linear systems](../../control/dominant-eigenvalues-qualitative-behavior-linear-systems.md)
+- [Eigendecomposition vs. spectral decomposition](../../linear-algebra/eigendecomposition-vs-spectral-decomposition.md)
+- [Diagonalization, Jordan form, and geometric meaning](../../linear-algebra/diagonalization-jordan-form-geometry.md)
