@@ -10,4 +10,5 @@ Notes on formulating and solving optimization problems that appear in estimation
 - [Least squares and pseudoinverse geometry](least_squares_and_pseudoinverse_geometry.md)
 - [Weighted least squares and normal equations](weighted-least-squares-normal-equations.md)
 - [Nonnegative matrix factorization](nmf_linear_algebra_and_optimization_notes.md)
+- [Convexity basics: sets, functions, and optimization](convexity-basics-sets-functions-and-optimization.md)
 - [Positive definiteness and local optimization](positive-definite-and-local-optimization.md)
