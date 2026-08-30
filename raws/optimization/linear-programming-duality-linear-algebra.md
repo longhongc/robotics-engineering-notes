@@ -206,7 +206,6 @@ $$
 
 For primal- and dual-feasible points, every term on the right is
 nonnegative. At zero gap, each term must vanish.
-$$
 
 Thus:
 - If a primal constraint is slack, its corresponding dual variable is zero.
