@@ -5,6 +5,7 @@ Notes on formulating and solving optimization problems that appear in estimation
 ## Notes
 
 - [Newton’s method: root finding vs. optimization](newtons-method-root-finding-vs-optimization.md)
+- [Optimal constant step size for quadratic gradient descent](gradient-descent-optimal-step-size-quadratic.md)
 - [Interior-point methods, barriers, and Newton steps](interior-point-method-barrier-and-newton.md)
 - [Linear programming duality](linear-programming-duality-linear-algebra.md), [simplex geometry](simplex-geometry-corners-slack-variables.md), [Phase I simplex](simplex-phase-i-artificial-variables.md), and [reduced costs, degeneracy, and cycling](simplex-reduced-costs-degeneracy-cycling.md)
 - [Least squares and pseudoinverse geometry](least_squares_and_pseudoinverse_geometry.md)
