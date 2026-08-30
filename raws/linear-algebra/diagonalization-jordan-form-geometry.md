@@ -107,6 +107,124 @@ polynomial-times-exponential terms. A diagonal matrix would instead describe
 independent modal coordinates, with no one-way generalized-eigenvector
 coupling.
 
+### Why the polynomial factor appears
+
+The \(t\) factor can be derived directly from the two-state chain. Since
+
+\[
+\dot{x}_2=\lambda x_2,
+\]
+
+we have
+
+\[
+x_2(t)=c_2e^{\lambda t}.
+\]
+
+Substituting this into the first state equation gives
+
+\[
+\dot{x}_1-\lambda x_1=c_2e^{\lambda t}.
+\]
+
+Multiplication by the integrating factor \(e^{-\lambda t}\) produces
+
+\[
+\frac{d}{dt}\left(e^{-\lambda t}x_1\right)=c_2.
+\]
+
+After integration,
+
+\[
+x_1(t)=(c_1+c_2t)e^{\lambda t}.
+\]
+
+Thus the exponential comes from the repeated eigenvalue, while the polynomial
+factor comes from integrating a signal that already contains that same
+exponential mode. Each additional link in a longer Jordan chain performs
+another such integration, producing the successive powers of \(t\).
+
+The same result appears immediately at the matrix level. Write a Jordan block
+of size \(m\) as
+
+\[
+J_m(\lambda)=\lambda I+N,
+\qquad N^m=0,
+\]
+
+where \(N\) contains the superdiagonal ones. Because \(\lambda I\) commutes
+with \(N\),
+
+\[
+e^{J_m(\lambda)t}
+=e^{\lambda t}e^{Nt}
+=e^{\lambda t}
+\sum_{k=0}^{m-1}\frac{t^k}{k!}N^k.
+\]
+
+For a size-2 block,
+
+\[
+N=
+\begin{bmatrix}
+0 & 1\\
+0 & 0
+\end{bmatrix},
+\qquad
+e^{Nt}=I+tN=
+\begin{bmatrix}
+1 & t\\
+0 & 1
+\end{bmatrix}.
+\]
+
+For a size-3 block, \(N^3=0\), so the quadratic term is the last nonzero
+term:
+
+\[
+e^{Nt}=I+tN+\frac{t^2}{2!}N^2=
+\begin{bmatrix}
+1 & t & \frac{t^2}{2!}\\
+0 & 1 & t\\
+0 & 0 & 1
+\end{bmatrix}.
+\]
+
+The series terminates because \(N\) is nilpotent. Therefore a size-\(m\)
+Jordan block can contribute terms through \(t^{m-1}e^{\lambda t}\), with the
+factorials coming from the exponential Taylor series. For a real system with
+complex \(\lambda\), conjugate terms combine into real oscillatory
+polynomial–exponential responses.
+
+### Forced ODEs and the null-space viewpoint
+
+The same idea explains the standard repeated-mode rule for a forced linear
+differential equation. Let \(L\) be a linear differential operator. Its
+homogeneous solutions form the null space
+
+\[
+\ker L=\{x:L[x]=0\}.
+\]
+
+If \(L[x_p]=f\), then adding any homogeneous solution leaves the forcing
+unchanged:
+
+\[
+L[x_p+x_h]=L[x_p]+L[x_h]=f.
+\]
+
+A candidate particular solution with the same form as a homogeneous mode fails
+when that form lies in \(\ker L\), because \(L\) maps it to zero rather than to
+the nonzero forcing. Multiplying the candidate by \(t\), or by a sufficiently
+high power of \(t\) when the mode is repeated, supplies a form outside the
+null space. The required power is determined by the multiplicity of the
+overlap, not merely by the fact that an eigenvalue is repeated.
+
+This is the differential-equation counterpart of the Jordan-chain calculation:
+the generalized mode is created by solving one more forced equation along the
+chain. The detailed undamped-resonance calculation is given in the [second-order
+resonance note](../control/second-order-system-frequencies-and-resonance.md).
+
 ---
 
 ## 3. Rotation and Complex Eigenvalues
@@ -160,31 +278,3 @@ Such matrices are:
 - **Unitary** over \(\mathbb{C}\)
 
 ### Geometric meaning
-- Lengths and angles are preserved.
-- No stretching, collapsing, or shearing occurs.
-- Transformations are rigid motions: rotations and reflections.
-
-Inner-product preservation is **independent of diagonalizability**.
-
----
-
-## 6. Conceptual Summary
-
-- **Diagonalizable**: independent directions, no coupling.
-- **Non-diagonalizable**: Jordan blocks, shear-type directional coupling.
-- **Complex eigenvalues**: rotation or spiral behavior.
-- **Real \(2 \times 2\) blocks**: rotation expressed in real coordinates.
-- **Jordan blocks**: algebraic entanglement, not rotation.
-- **Orthogonal / unitary matrices**: preserve inner products, but may or may not be diagonalizable over \(\mathbb{R}\).
-
----
-
-## 7. One-Sentence Insight
-
-Diagonalization means complete decoupling of directions, Jordan blocks encode unavoidable shear-type coupling, and rotation arises from complex eigenvalues rather than from Jordan defectiveness.
-
-## Related material
-
-- [Matrix exponential properties](../control/matrix-exponential-properties.md)
-- [Solutions of linear difference and differential equations](../control/solutions-of-linear-difference-and-differential-equations.md)
-- [Learning issue #15](https://github.com/longhongc/robotics-engineering-notes/issues/15)
