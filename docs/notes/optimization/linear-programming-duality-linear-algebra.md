@@ -212,8 +212,6 @@ $$
 For primal- and dual-feasible points, every term on the right is
 nonnegative. At zero gap, each term must vanish.
 
-$$
-
 Thus:
 - If a primal constraint is slack, its corresponding dual variable is zero.
 - If a dual constraint is slack, its corresponding primal variable is zero.
@@ -253,9 +251,7 @@ These conditions parallel the KKT conditions in convex optimization.
 The Lagrangian for the primal problem is:
 
 $$
-
 L(x, y) = c^T x - y^T (Ax - b), \quad y \ge 0.
-
 $$
 
 Here, the dual variables $y$ act as **Lagrange multipliers** for the inequality constraints.
@@ -268,18 +264,14 @@ For the minimization convention used in this note, primal feasibility gives
 $b-Ax\le0$, so
 
 $$
-
 L(x,y)=b^T y+x^T(c-A^T y)\le c^T x.
-
 $$
 
 For a fixed multiplier, define the dual function by eliminating the primal
 variable through an infimum:
 
 $$
-
 q(y)=\inf_{x\ge0}L(x,y).
-
 $$
 
 If any component of $c-A^T y$ is negative, the infimum is $-\infty$.
@@ -287,72 +279,56 @@ Thus a finite lower-bound certificate requires $A^T y\le c$, in which
 case $q(y)=b^T y$. Maximizing this lower bound gives the dual:
 
 $$
-
 \max_{y\ge0}\;q(y)=\max\;b^T y
 \quad\text{s.t.}\quad A^T y\le c.
-
 $$
 
 For the maximization-primal convention, use
 
 $$
-
 \max\;c^T x\quad\text{s.t.}\quad Ax\le b,\;x\ge0.
-
 $$
 
 The same expression
 
 $$
-
 L(x,y)=c^T x+y^T(b-Ax)
-
 $$
 
 is now an upper bound on the primal objective. The dual function eliminates
 the primal variable through a supremum:
 
 $$
-
 h(y)=\sup_{x\ge0}L(x,y).
-
 $$
 
 This supremum is finite only when $A^T y\ge c$, and then
 $h(y)=b^T y$. Minimizing this upper bound gives
 
 $$
-
 \min_{y\ge0}\;h(y)=\min\;b^T y
 \quad\text{s.t.}\quad A^T y\ge c.
-
 $$
 
 Finally, for the standard-form equality problem
 
 $$
-
 \min\;c^T x\quad\text{s.t.}\quad Ax=b,\;x\ge0,
-
 $$
 
 the multiplier $y$ is unrestricted because it belongs to an equality
 constraint. The infimum construction gives
 
 $$
-
 s=c-A^T y\ge0,
 \qquad
 x_i s_i=0
-
 $$
 
 at the optimum, and hence
 
 $$
-
 c^T x-b^T y=x^T s.
-
 $$
 
 Thus, LP dual variables are Lagrange multipliers, but the dual objective is
