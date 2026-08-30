@@ -162,6 +162,34 @@ e^{J_m(\lambda)t}
 \sum_{k=0}^{m-1}\frac{t^k}{k!}N^k.
 \]
 
+For a size-2 block,
+
+\[
+N=
+\begin{bmatrix}
+0 & 1\\
+0 & 0
+\end{bmatrix},
+\qquad
+e^{Nt}=I+tN=
+\begin{bmatrix}
+1 & t\\
+0 & 1
+\end{bmatrix}.
+\]
+
+For a size-3 block, \(N^3=0\), so the quadratic term is the last nonzero
+term:
+
+\[
+e^{Nt}=I+tN+\frac{t^2}{2!}N^2=
+\begin{bmatrix}
+1 & t & \frac{t^2}{2!}\\
+0 & 1 & t\\
+0 & 0 & 1
+\end{bmatrix}.
+\]
+
 The series terminates because \(N\) is nilpotent. Therefore a size-\(m\)
 Jordan block can contribute terms through \(t^{m-1}e^{\lambda t}\), with the
 factorials coming from the exponential Taylor series. For a real system with
@@ -250,11 +278,3 @@ Such matrices are:
 - **Unitary** over \(\mathbb{C}\)
 
 ### Geometric meaning
-- Lengths and angles are preserved.
-- No stretching, collapsing, or shearing occurs.
-- Transformations are rigid motions: rotations and reflections.
-
-Inner-product preservation is **independent of diagonalizability**.
-
----
-
