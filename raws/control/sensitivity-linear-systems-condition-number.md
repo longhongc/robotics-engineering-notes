@@ -70,22 +70,34 @@ Two right-hand sides:
   \quad \Rightarrow \quad u = 1, \ v = 1
   $$
 
-Relative change in \( b \):
+Using the Euclidean norm, the relative change in \( b \) is:
 
 $$
-\frac{\|\delta b\|}{\|b\|} = 10^{-4}
+\frac{\|\delta b\|_2}{\|b\|_2}
+=
+\frac{10^{-4}}{\sqrt{2^2+2^2}}
+=
+\frac{10^{-4}}{2\sqrt{2}}
+\approx 3.54 \times 10^{-5}
 $$
 
 Relative change in \( x \):
 
 $$
-\frac{\|\delta x\|}{\|x\|} = \frac{\|(-1, 1)\|}{\|(2, 0)\|} = \frac{\sqrt{2}}{2}
+\frac{\|\delta x\|_2}{\|x\|_2}
+=
+\frac{\|(-1, 1)\|_2}{\|(2, 0)\|_2}
+=
+\frac{\sqrt{2}}{2}
 $$
 
-Relative error ratio:
+Observed relative-error amplification:
 
 $$
-\frac{\|\delta x\| / \|x\|}{\|\delta b\| / \|b\|} \approx 2 \times 10^4
+\frac{\|\delta x\|_2 / \|x\|_2}{\|\delta b\|_2 / \|b\|_2}
+\approx
+\frac{0.707}{3.54 \times 10^{-5}}
+\approx 2.0 \times 10^4
 $$
 
 This illustrates how small input perturbations can lead to large output errors when the condition number is large.
@@ -139,5 +151,3 @@ This condition number governs the worst-case relative sensitivity of the system 
 - For SPD matrices, sensitivity is governed by the ratio of eigenvalues.
 - For general matrices, use singular values to define the condition number.
 - A large condition number implies the system is ill-conditioned and numerically unstable.
-
-
