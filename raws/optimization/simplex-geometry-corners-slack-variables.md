@@ -3,24 +3,27 @@
 ## Big Picture
 
 The simplex method works by moving between **corner points (vertices)** of a feasible region.
-Understanding *why* a corner is obtained by setting exactly \(n\) variables to zero after introducing slack variables is a **geometric dimension-counting argument**.
+Understanding why a basis fixes some variables to zero after introducing slack
+variables is a **geometric dimension-counting argument**. In a nondegenerate
+basic feasible solution, exactly \(n\) variables are zero; degeneracy can make
+additional basic variables zero as well.
 
 ---
 
 ## Core Setup
 
-Start with a linear program:
+For the geometric discussion, use the common inequality convention:
 
 - \(n\) original variables: \(x \in \mathbb{R}^n\)
 - \(m\) inequality constraints:
   $$
-  Ax \ge b
+  Ax \le b
   $$
 
 Introduce **slack variables** \(w \in \mathbb{R}^m\) to convert inequalities to equalities:
 
 $$
-Ax - w = b
+Ax + w = b
 $$
 
 with nonnegativity constraints:
@@ -28,6 +31,11 @@ with nonnegativity constraints:
 $$
 x \ge 0, \quad w \ge 0
 $$
+
+If an inequality is written as \(a_i^T x\ge b_i\), conversion instead uses a
+surplus variable, \(a_i^T x-w_i=b_i\). A surplus column does not provide the
+same identity basis as a slack column, which is one reason Phase I may be
+needed.
 
 ---
 
@@ -43,12 +51,15 @@ After adding slack variables:
 
 ## Key Geometric Principle
 
-> In a \(d\)-dimensional space, a corner (vertex) is formed by \(d\) independent **active constraints**.
+> In a \(d\)-dimensional affine feasible space, a corner is formed when
+> enough independent active constraints remove all remaining feasible
+> directions.
 
 Examples:
 - 2D: 2 lines intersect at a point
 - 3D: 3 planes intersect at a point
-- \((n+m)\)D: \(n+m\) active constraints are needed
+- \((n+m)\)D: \(n+m\) independent active constraints are needed in the lifted
+  ambient-space count
 
 ---
 
@@ -58,13 +69,13 @@ In the simplex formulation:
 
 1. The \(m\) **equality constraints**
    $$
-   Ax - w = b
+   Ax + w = b
    $$
    are always active.
 
-2. To reach a corner in \(\mathbb{R}^{n+m}\), we need **\(n+m\)** active constraints total.
+2. Assuming the \(m\) equalities are independent, they reduce the lifted \(n+m\)-dimensional space to an \(n\)-dimensional affine space.
 
-3. Therefore, we need **\(n\) additional active constraints**.
+3. A nondegenerate basic solution chooses **\(n\)** additional independent active nonnegativity constraints.
 
 These come from **nonnegativity constraints becoming binding**, i.e., setting variables to zero:
 
@@ -84,7 +95,39 @@ $$
 (n+m) - m = n
 $$
 
-This is why **exactly \(n\) variables are set to zero** at a basic feasible solution.
+This is why a nondegenerate basic feasible solution has exactly \(n\) zero
+variables. In a degenerate basic feasible solution, one or more basic
+variables may also be zero, so the total number of zero variables can exceed
+\(n\).
+
+---
+
+## Basis exchange and neighboring corners
+
+The basis gives simplex its movement rule. Partition the lifted variables into
+basic and nonbasic parts:
+
+$$
+B x_B+N x_N=b.
+$$
+
+At the current basic feasible solution, \(x_N=0\) and
+\(x_B=B^{-1}b\ge0\). To move, choose one nonbasic variable \(x_j=t\) to
+enter. Maintaining equality feasibility forces
+
+$$
+x_B(t)=B^{-1}b-t(B^{-1}N)_j.
+$$
+
+The ratio test finds the largest \(t\ge0\) for which every basic variable
+remains nonnegative. The first basic variable to reach zero leaves the basis.
+The entering/leaving exchange moves to a neighboring vertex and produces a
+new basis. Reduced costs decide whether increasing the entering variable can
+improve the objective; their algebra is developed in the [reduced-cost note](simplex-reduced-costs-degeneracy-cycling.md).
+
+If the ratio test returns \(t=0\), the basis may change without geometric
+movement. This is a degenerate pivot, and repeated degenerate pivots are the
+source of possible cycling.
 
 ---
 
@@ -102,10 +145,23 @@ This is why **exactly \(n\) variables are set to zero** at a basic feasible solu
 - Confusing the dimension of the *original* problem (\(n\)) with the dimension after adding slacks (\(n+m\)).
 - Thinking slack variables are merely algebraic tricks; they **change the geometry** by lifting the problem into higher dimensions.
 - Forgetting that nonnegativity constraints count as geometric constraints when they are active.
+- Treating a surplus variable from \(a_i^T x\ge b_i\) as if it were an identity-column slack variable.
+- Assuming that a basic feasible solution has exactly \(n\) zero variables even when it is degenerate.
+- Confusing basic/nonbasic variables with active/inactive constraints; the terms describe related but different structures.
+
+---
+
+## Related material
+
+- [Simplex reduced costs, degeneracy, and cycling](simplex-reduced-costs-degeneracy-cycling.md)
+- [Phase I simplex with artificial variables](simplex-phase-i-artificial-variables.md)
+- [Linear programming and duality](linear-programming-duality-linear-algebra.md)
 
 ---
 
 ## One-Line Takeaway
 
-> Adding slack variables moves the feasible region into \(\mathbb{R}^{n+m}\); a corner there requires \(n+m\) active constraints, of which \(m\) come from equalities and the remaining \(n\) come from setting variables to zero.
-
+> Adding slack variables lifts the problem into \(\mathbb{R}^{n+m}\). A basis
+> supplies \(m\) basic variables and fixes \(n\) nonbasic variables to zero;
+> in the nondegenerate case this identifies a corner, while degeneracy may
+> make additional basic variables zero.

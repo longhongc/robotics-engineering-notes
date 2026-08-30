@@ -179,3 +179,10 @@ Examples of anti-cycling rules:
 
 ---
 
+## Related material
+
+- [Geometry of corners and basis exchange](simplex-geometry-corners-slack-variables.md)
+- [Phase I simplex with artificial variables](simplex-phase-i-artificial-variables.md)
+- [Linear programming and duality](linear-programming-duality-linear-algebra.md)
+
+---
