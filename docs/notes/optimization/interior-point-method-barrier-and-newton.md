@@ -22,6 +22,12 @@ $$
 A^T y + s = c,\quad s \ge 0.
 $$
 
+Because $Ax=b$ is an equality constraint, the multiplier $y$ is unrestricted
+in sign. The nonnegative variable $s$ is the dual slack. This note therefore
+uses the equality-form minimization convention; inequality-form primal and
+dual pairs require different multiplier signs, as summarized in the
+[LP duality note](linear-programming-duality-linear-algebra.md#sign-conventions-matter).
+
 The classical Karush–Kuhn–Tucker (KKT) conditions are:
 
 $$
@@ -58,7 +64,8 @@ Key properties of the log barrier:
 
 ## 3. Lagrangian and Stationarity
 
-Introduce Lagrange multipliers $y$ for the equality constraint $Ax=b$.
+Introduce unrestricted Lagrange multipliers $y$ for the equality constraint
+$Ax=b$. Equality multipliers are not constrained to be nonnegative.
 
 The Lagrangian is:
 
@@ -185,4 +192,3 @@ For nonlinear programs (as in general interior-point solvers):
 - As $\mu \to 0$, the iterates approach a true primal–dual optimal solution.
 
 Interior-point methods thus combine barrier functions with Newton’s method to efficiently solve large-scale constrained optimization problems.
-
