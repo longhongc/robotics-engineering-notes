@@ -10,7 +10,17 @@ $$
 
 do we need to assume that $A$ is diagonalizable in order to conclude Perron–Frobenius-type long-term behavior?
 
-**No.** A strict spectral gap is the important condition for a single dominant mode. Full diagonalizability is not required.
+**No.** Full diagonalizability is not required. For the rank-one asymptotic
+limit, the relevant condition is that the dominant eigenvalue $r$ is
+algebraically simple and strictly dominant:
+
+$$
+|\lambda|<r
+\qquad\text{for every other eigenvalue }\lambda.
+$$
+
+Primitivity is a convenient nonnegative-matrix assumption that guarantees
+both properties.
 
 ---
 
@@ -37,7 +47,7 @@ The assumptions on $A$ determine whether $r$ is strictly dominant:
 | $A>0$, or more generally $A$ primitive | $r$ is the only eigenvalue with modulus $r$ |
 | $A$ irreducible with period $h>1$ | There are $h$ eigenvalues on the circle $\lvert\lambda\rvert=r$ |
 
-Here, primitive means that $A^m>0$ entrywise for some positive integer $m$. Every positive matrix is primitive. Irreducibility alone does not guarantee a single dominant mode in discrete time.
+Here, primitive means that $A^m>0$ entrywise for some positive integer $m$. Every positive matrix is primitive. For the rank-one limit, strict peripheral separation must be combined with the simplicity of $r$; primitivity supplies both. Irreducibility alone does not guarantee a single dominant mode in discrete time.
 
 ---
 
@@ -150,6 +160,39 @@ The dominant direction is $v$, while $w^Tx_0$ determines how strongly the initia
 
 ---
 
+### Why simplicity matters
+
+A strict separation in modulus from the other *distinct* eigenvalues is not
+enough if the dominant eigenvalue itself has a nontrivial Jordan block. For
+example,
+
+$$
+A=
+\begin{bmatrix}
+1&1&0\\
+0&1&0\\
+0&0&0
+\end{bmatrix}
+$$
+
+has spectral radius $r=1$, with the other eigenvalue $0$ strictly inside the
+spectral circle. However, the eigenvalue $1$ is defective, and
+
+$$
+A^k=
+\begin{bmatrix}
+1&k&0\\
+0&1&0\\
+0&0&0
+\end{bmatrix}.
+$$
+
+The factor $k$ comes from the Jordan block at the dominant eigenvalue, so
+$A^k/r^k$ does not converge to a finite rank-one projector. This is why the
+dominant eigenvalue must be algebraically simple. For a primitive nonnegative
+matrix, Perron–Frobenius rules out this failure by making $r$ algebraically
+simple.
+
 ## Primitive versus irreducible dynamics
 
 The distinction matters in discrete-time systems. Consider the irreducible nonnegative matrix
@@ -182,13 +225,15 @@ $$
 \widehat{x}_k\longrightarrow\frac{v}{\mathbf{1}^Tv}.
 $$
 
-Without primitivity or another strict spectral-gap assumption, this convergence statement must be replaced by a statement about the peripheral modes.
+Without primitivity or another assumption guaranteeing a simple dominant
+eigenvalue with strict spectral separation, this convergence statement must be
+replaced by a statement about the peripheral modes.
 
 ---
 
 ## Dynamical consequences
 
-Under the strict-dominance condition:
+Under the simple strict-dominance condition:
 
 - if $r>1$, the magnitude grows exponentially along $v$;
 - if $r=1$, the dominant mode has constant magnitude;
@@ -201,7 +246,13 @@ These conclusions describe the dominant mode, not necessarily a complete closed-
 
 ## Key takeaway
 
-Perron–Frobenius theory does not rely on diagonalizability. The left Perron eigenvector extracts the coefficient of the right Perron mode, and a strict spectral gap makes that rank-one projection dominate all defective residual modes. For discrete-time convergence, however, irreducibility alone is not enough: primitivity, or an equivalent strict-dominance condition, is required for convergence to a single direction.
+Perron–Frobenius theory does not rely on diagonalizability. The left Perron
+eigenvector extracts the coefficient of the right Perron mode, and a simple
+dominant eigenvalue with a strict spectral gap makes that rank-one projection
+dominate all defective residual modes. For discrete-time convergence, however,
+irreducibility alone is not enough: primitivity, or another assumption
+guaranteeing these two spectral properties, is required for convergence to a
+single direction.
 
 ## Related material
 
